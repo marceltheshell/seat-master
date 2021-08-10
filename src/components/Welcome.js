@@ -1,10 +1,6 @@
 import React from 'react';
 //import Header from './Header';
 import { Container, Col, Row, Button } from 'react-bootstrap';
-// import Container from 'react-boostrap/Container';
-// import Col from 'react-boostrap/Col';
-// import Row from 'react-boostrap/Row';
-// import Button from 'react-boostrap/Button';
 
 function Welcome () {  
     return (
