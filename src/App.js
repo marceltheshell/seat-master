@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // import Klasses from './Klasses';
 import Welcome from './components/Welcome';
+//import FormExample from './components/FormExample';
 // import NotFound from './NotFound';
 // import Klass from './Klass';
 
