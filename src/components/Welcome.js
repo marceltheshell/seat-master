@@ -13,7 +13,7 @@ function Welcome () {
 						<p className="brand-tag-line">Better seating. Better groupwork. Better teaching.</p>
 					</Col>
 					<Col xs={6}>
-						<img src="images/school-class-3.jpg" alt="students"></img>
+						<img src="images/school-class-3.jpg" alt="students_img"></img>
 					</Col>
 					<Col>
 					</Col>   

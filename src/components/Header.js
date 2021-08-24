@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Modal, Container, Button, Form } from 'react-bootstrap';
-//const axios = require('axios').default;
+const axios = require('axios').default;
 
 function Header () {
 	const [showLoginModal, setShowLoginModal] = useState(false);
@@ -8,22 +8,8 @@ function Header () {
 	const [userName, setUserName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	// for form validation
-
-
-	// const sendData = async (teacher) => {
-	// 	try {
-	// 		const response = await axios.post(
-	// 			'http://127.0.0.1:9876/api/v1/teachers.json',
-	// 			teacher
-	// 		);
-	// 		console.log('resp', response);
-	// 	} catch (err) {
-	// 		console.log('error', err)
-	// 	}
-	// };
-
 	const [validated, setValidated] = useState(false);
+	
 	const handleSubmitLogin = (e) => {
 		console.log('hi');
 		const form = e.currentTarget;
@@ -41,11 +27,23 @@ function Header () {
 		};
 
 		console.log('things got sent', payload);
-		// sendData(payload);
+		sendLoginData(payload);
+	};
+
+	const sendLoginData = async (teacher) => {
+		try {
+			const response = await axios.post(
+				'http://127.0.0.1:9876/api/v1/teachers.json',
+				teacher
+			);
+			console.log('resp', response);
+		} catch (err) {
+			console.log('error', err);
+		}
 	};
 
 	const handleSubmitSignUp = (e) => {
-		console.log('hi');
+
 		const form = e.currentTarget;
 		if (form.checkValidity() === false) {
 			e.preventDefault();
@@ -61,7 +59,18 @@ function Header () {
 		};
 
 		console.log('things got sent', payload);
-		// sendData(payload);
+		sendSignUpData(payload);
+	};
+
+	const sendSignUpData = async (signUpParams) => {
+		try {
+			const response = await axios.post(
+				'http://127.0.0.1:9876/api/v1/teachers.json',
+			);
+			console.log('resp', response);
+		} catch (err) {
+			console.log('error', err);
+		}
 	};
 
 	return (
@@ -122,7 +131,7 @@ function Header () {
 									<Form.Group className="mb-3">
 										<Form.Label>Password</Form.Label>
 										<Form.Control 
-											type="text"
+											type="password"
 											required
 											onChange={event => setPassword(event.target.value)}
 										/>
