@@ -1,6 +1,7 @@
 import React from 'react';
 import './css/App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import SignUp from './components/SignUp';
 
 // import Klasses from './Klasses';
 import Welcome from './components/Welcome';
@@ -14,6 +15,7 @@ function App() {
 			<div>
 				<Switch>
 					<Route exact path="/" component={Welcome}/>
+					<Route path="/signup" component={SignUp} />
 					{/* <Route exact path="/klasses" component={Klasses}/>  */}
 					{/* <Route path="/klasses/:id" component={Klass}/> */}
 					{/* <Route component={NotFound} /> */}
