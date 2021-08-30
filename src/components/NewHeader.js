@@ -48,7 +48,7 @@ function NewHeader () {
 							<Nav.Link
 								className="brand-fontColor oswald-font link-text-size" 
 							>
-								{username && <p>{username}</p>}
+								{username && <p> Hello {username}!</p>}
 							</Nav.Link>
 						</Nav.Item>
 						<SignUp handleClose={handleClose} showSignUpModal={showSignUpModal} setUsername={setUsername}/>
