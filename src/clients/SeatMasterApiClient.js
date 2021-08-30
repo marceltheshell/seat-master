@@ -13,13 +13,13 @@ const SeatMasterApiClient = {
 			},
 			body: JSON.stringify(bodyParams)
 		});
-		const parsedResponse = await data.json();
+		const parsedResponse = await response.json();
 		console.log('Post response: ', parsedResponse);
 		return parsedResponse;
 	},
 	put: async (url, bodyParams) => {
 		// todo
-		console.log(url, queryParams);
+		console.log(url, bodyParams);
 	},
 	delete: async (url, queryParams) => {
 		// todo
