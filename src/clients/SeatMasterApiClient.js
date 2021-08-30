@@ -5,17 +5,22 @@ const SeatMasterApiClient = {
 	},
 	post: async (url, bodyParams) => {
 		console.log('Post to SeatMaster api: ', url, bodyParams);
-		const response = await fetch(url, {
-			method: 'POST',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(bodyParams)
-		});
-		const parsedResponse = await response.json();
-		console.log('Post response: ', parsedResponse);
-		return parsedResponse;
+		try {
+			const response = await fetch(url, {
+				method: 'POST',
+				mode: 'cors',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(bodyParams)
+			});
+			const parsedResponse = await response.json();
+			parsedResponse.status = response.status;
+			console.log('Post response: ', parsedResponse);
+			return parsedResponse;
+		} catch(err) {
+			console.log('err in post', err);
+		}
 	},
 	put: async (url, bodyParams) => {
 		// todo
