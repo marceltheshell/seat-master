@@ -1,25 +1,24 @@
+const axios = require('axios').default;
+
 const SeatMasterApiClient = {
 	get: async (url, queryParams) => {
 		// todo
 		console.log(url, queryParams);
 	},
 	post: async (url, bodyParams) => {
-		console.log('Post to SeatMaster api: ', url, bodyParams);
+		const headers = {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		};
+		
 		try {
-			const response = await fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(bodyParams)
-			});
-			const parsedResponse = await response.json();
-			parsedResponse.status = response.status;
-			console.log('Post response: ', parsedResponse);
-			return parsedResponse;
-		} catch(err) {
-			console.log('err in post', err);
+			const resp = await axios.post(url, bodyParams, headers);
+			console.log('Post response', resp);
+			return resp;
+		} catch (err) {
+			console.error('error in Post response', err);
+			return err;
 		}
 	},
 	put: async (url, bodyParams) => {
