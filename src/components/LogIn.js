@@ -1,4 +1,5 @@
 import React, {useState}  from 'react';
+import { useAuth } from '../context/AuthContext';
 import { Form, Button, Modal } from 'react-bootstrap';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import { useForm } from 'react-hook-form';
@@ -6,9 +7,12 @@ import _ from 'lodash';
 const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
 
 function LogIn (props) {
+	
+	const { setCurrentUser } = useAuth();
 	const [loginErrorMessage, setLoginErrorMessage] = useState('');
-	const { handleCloseLogIn, showLogInModal, setUsername, setAuthToken} = props;
+	const { handleCloseLogIn, showLogInModal } = props;
 	const { register, handleSubmit, reset, formState: { errors } } = useForm();
+	
 	const resetErrors = () => {
 		reset();
 		setLoginErrorMessage('');
@@ -29,16 +33,22 @@ function LogIn (props) {
 				reset();
 				return;
 			}
-			// set username
-			const name = _.get(logInResponse, 'data.data.attributes.username');
-			setUsername(name);
 
-			// set auth token
-			const authToken = logInResponse.headers.authorization;
-			setAuthToken(authToken);
+			const currentUser = {
+				username: _.get(logInResponse, 'data.data.attributes.username'),
+				authToken: _.get(logInResponse, 'headers.authorization')
+			};
 
+			// set global current user	
+			setCurrentUser(currentUser);
 
+			// persist in session storage or local storage
+			sessionStorage.setItem('user', currentUser);
+
+			// close the modal
 			handleCloseLogIn();
+
+			
 		} catch (err) {
 			console.log('error in LoginComponent', err);
 		}

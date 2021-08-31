@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
+import { useAuth } from '../context/AuthContext';
 
 function NewHeader () {
-	const [username, setUsername] = useState('');
-	const [authToken, setAuthToken] = useState('');
+	const { currentUser, setCurrentUser } = useAuth();
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
-	const [showLogInModal, setShowLogInModal] = useState(true);
-	console.log('here is auth token', authToken);
+	const [showLogInModal, setShowLogInModal] = useState(false);
+	// const [showAddSchoolModal, setShowAddSchoolModal] = useState(false);
 
 	const handleCloseSignUp = () =>  {
 		setShowSignUpModal(false);
@@ -22,6 +22,17 @@ function NewHeader () {
 	const handleShowLogIn = () =>  {
 		setShowLogInModal(true);
 	};
+	// const handleCloseAddSchool = () => {
+	// 	setShowLogInModal(false);
+	// };
+	// const handleShowAddSchool = () =>  {
+	// 	setShowLogInModal(true);
+	// };
+	const logOut = () => {
+		setCurrentUser(null);
+		sessionStorage.setItem('user', null);
+	};
+
 
 	return (
 		<Container>
@@ -37,7 +48,7 @@ function NewHeader () {
 								The Story
 							</Nav.Link>
 						</Nav.Item>
-						{!authToken && <Nav.Item>
+						{!currentUser && <Nav.Item>
 							<Nav.Link
 								className="brand-fontColor oswald-font link-text-size" 
 								onClick={handleShowSignUp}
@@ -45,7 +56,7 @@ function NewHeader () {
 								Sign Up
 							</Nav.Link>
 						</Nav.Item>}
-						{!authToken && <Nav.Item>
+						{!currentUser && <Nav.Item>
 							<Nav.Link 
 								className="brand-fontColor oswald-font link-text-size" 
 								onClick={handleShowLogIn}
@@ -53,23 +64,23 @@ function NewHeader () {
 								Login
 							</Nav.Link>
 						</Nav.Item>}
-						{authToken && <Nav.Item>
+						{currentUser && <Nav.Item>
 							<Nav.Link
 								className="brand-fontColor oswald-font link-text-size" 
 							>
-								{username && <p> Welcome back {username}!</p>}
+								{currentUser && <p> Welcome back {currentUser.username}!</p>}
 							</Nav.Link>
 						</Nav.Item>}
-						{authToken && <Nav.Item>
+						{currentUser && <Nav.Item>
 							<Nav.Link
 								className="brand-fontColor oswald-font link-text-size"
-								onClick={() => {setUsername(); setAuthToken();}} 
+								onClick={logOut}
 							>
 								Logout
 							</Nav.Link>
 						</Nav.Item>}
-						<SignUp handleCloseSignUp={handleCloseSignUp} showSignUpModal={showSignUpModal} setUsername={setUsername} setAuthToken={setAuthToken}/>
-						<LogIn handleCloseLogIn={handleCloseLogIn} showLogInModal={showLogInModal} setUsername={setUsername} setAuthToken={setAuthToken}/>
+						<SignUp handleCloseSignUp={handleCloseSignUp} showSignUpModal={showSignUpModal} />
+						<LogIn handleCloseLogIn={handleCloseLogIn} showLogInModal={showLogInModal} />
 					</Nav>  
 				</Navbar.Collapse>
 			</Navbar>

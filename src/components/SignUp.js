@@ -3,10 +3,13 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import { useForm } from 'react-hook-form';
 import _ from 'lodash';
+import { useAuth } from '../context/AuthContext';
 	
 function SignUp (props) {
+
+	const { setCurrentUser } = useAuth();
 	const { register, handleSubmit, reset, formState: { errors } } = useForm();
-	const { showSignUpModal, handleCloseSignUp, setUsername, setAuthToken } = props;
+	const { showSignUpModal, handleCloseSignUp } = props;
 	const [duplicateEmail, setDuplicateEmail] = useState('');
 	const signUpUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/signup`;
 	const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
@@ -36,13 +39,19 @@ function SignUp (props) {
 				delete payload.username;
 				const logInResponse = await SeatMasterApiClient.post(loginUrl, payload);
 				
-				// set username
-				const name = _.get(logInResponse, 'data.data.attributes.username');
-				setUsername(name);
+				const currentUser = {
+					username: _.get(logInResponse, 'data.data.attributes.username'),
+					authToken: _.get(logInResponse, 'headers.authorization')
+				};
 
-				// set auth token
-				const authToken = logInResponse.headers.authorization;
-				setAuthToken(authToken);
+				// set global current user	
+				setCurrentUser(currentUser);
+
+				// persist in session storage or local storage
+				sessionStorage.setItem('user', currentUser);
+
+				// close the modal
+				handleCloseSignUp();
 
 			} catch (err) {
 				console.log('error in login block of Sign Up component', err);
