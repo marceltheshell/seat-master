@@ -5,10 +5,10 @@ import LogIn from './LogIn';
 
 function NewHeader () {
 	const [username, setUsername] = useState('');
-	const [authToken, setAuthToken] = useState(null);
+	const [authToken, setAuthToken] = useState('');
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
 	const [showLogInModal, setShowLogInModal] = useState(true);
-	console.log('auth token', authToken);
+	console.log('here is auth token', authToken);
 
 	const handleCloseSignUp = () =>  {
 		setShowSignUpModal(false);
@@ -37,29 +37,37 @@ function NewHeader () {
 								The Story
 							</Nav.Link>
 						</Nav.Item>
-						<Nav.Item>
+						{!authToken && <Nav.Item>
 							<Nav.Link
 								className="brand-fontColor oswald-font link-text-size" 
 								onClick={handleShowSignUp}
 							>
 								Sign Up
 							</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
+						</Nav.Item>}
+						{!authToken && <Nav.Item>
 							<Nav.Link 
 								className="brand-fontColor oswald-font link-text-size" 
 								onClick={handleShowLogIn}
 							>
 								Login
 							</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
+						</Nav.Item>}
+						{authToken && <Nav.Item>
 							<Nav.Link
 								className="brand-fontColor oswald-font link-text-size" 
 							>
-								{username && <p> Hello {username}!</p>}
+								{username && <p> Welcome back {username}!</p>}
 							</Nav.Link>
-						</Nav.Item>
+						</Nav.Item>}
+						{authToken && <Nav.Item>
+							<Nav.Link
+								className="brand-fontColor oswald-font link-text-size"
+								onClick={() => {setUsername(); setAuthToken();}} 
+							>
+								Logout
+							</Nav.Link>
+						</Nav.Item>}
 						<SignUp handleCloseSignUp={handleCloseSignUp} showSignUpModal={showSignUpModal} setUsername={setUsername} setAuthToken={setAuthToken}/>
 						<LogIn handleCloseLogIn={handleCloseLogIn} showLogInModal={showLogInModal} setUsername={setUsername} setAuthToken={setAuthToken}/>
 					</Nav>  

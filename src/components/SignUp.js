@@ -22,24 +22,26 @@ function SignUp (props) {
 		};
 		
 		try {
-			const response = await SeatMasterApiClient.post(signUpUrl, payload);
+			const signUpResponse = await SeatMasterApiClient.post(signUpUrl, payload);
 			
-			if(response.status === 400 && response.message === 'Email already exists.') {
+			// error block
+			if(_.get(signUpResponse, 'response.status') === 400) {
 				setDuplicateEmail(data.email);
 				reset();
 				return;
 			}
+			//
 
 			try {
 				delete payload.username;
-				const response = await SeatMasterApiClient.post(loginUrl, payload);
+				const logInResponse = await SeatMasterApiClient.post(loginUrl, payload);
 				
 				// set username
-				const name = _.get(response, 'data.attributes.username');
+				const name = _.get(logInResponse, 'data.data.attributes.username');
 				setUsername(name);
 
 				// set auth token
-				const authToken = 'xyz';
+				const authToken = logInResponse.headers.authorization;
 				setAuthToken(authToken);
 
 			} catch (err) {

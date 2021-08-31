@@ -22,19 +22,19 @@ function LogIn (props) {
 		};
 
 		try {
-			const response = await SeatMasterApiClient.post(loginUrl, payload);
+			const logInResponse = await SeatMasterApiClient.post(loginUrl, payload);
 			
-			if(response.status === 401) {
-				setLoginErrorMessage(response.error);
+			if(logInResponse.status === 401) {
+				setLoginErrorMessage(logInResponse.error);
 				reset();
 				return;
 			}
 			// set username
-			const name = _.get(response, 'data.attributes.username');
+			const name = _.get(logInResponse, 'data.data.attributes.username');
 			setUsername(name);
 
 			// set auth token
-			const authToken = 'xyz';
+			const authToken = logInResponse.headers.authorization;
 			setAuthToken(authToken);
 
 
