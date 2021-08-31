@@ -6,12 +6,10 @@ import _ from 'lodash';
 	
 function SignUp (props) {
 	const { register, handleSubmit, reset, formState: { errors } } = useForm();
-	const { showSignUpModal, handleClose, setUsername } = props;
-	const [isDuplicateEmail, setIsDuplicateEmail] = useState(false);
-	const [duplicateEmailValue, setDuplicateEmailValue] = useState('');
-	const resetErrors = () => {
-		setIsDuplicateEmail(false);
-	};
+	const { showSignUpModal, handleCloseSignUp, setUsername, setAuthToken } = props;
+	const [duplicateEmail, setDuplicateEmail] = useState('');
+	const signUpUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/signup`;
+	const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
 
 	console.log('validation errors', errors);
 	const handleSubmitSignUp = async (data) => {
@@ -22,23 +20,34 @@ function SignUp (props) {
 				'password': data.password
 			}
 		};
-		const url = `${process.env.REACT_APP_DEV_SERVER_URL}/api/signup`;
-
+		
 		try {
-			const response = await SeatMasterApiClient.post(url, payload);
+			const response = await SeatMasterApiClient.post(signUpUrl, payload);
 			
 			if(response.status === 400 && response.message === 'Email already exists.') {
-				setIsDuplicateEmail(true);
-				setDuplicateEmailValue(data.email);
+				setDuplicateEmail(data.email);
 				reset();
 				return;
 			}
 
-			const name = _.get(response, 'data.attributes.username');
-			setUsername(name);
-			handleClose();
+			try {
+				delete payload.username;
+				const response = await SeatMasterApiClient.post(loginUrl, payload);
+				
+				// set username
+				const name = _.get(response, 'data.attributes.username');
+				setUsername(name);
+
+				// set auth token
+				const authToken = 'xyz';
+				setAuthToken(authToken);
+
+			} catch (err) {
+				console.log('error in login block of Sign Up component', err);
+			}
+			handleCloseSignUp();
 		} catch (err) {
-			console.log('error here', err);
+			console.log('error in Sign Up block of Sign Up component', err);
 		}
 	};
 	
@@ -47,7 +56,7 @@ function SignUp (props) {
 			aria-labelledby="contained-modal-title-vcenter"
 			centered
 			show={showSignUpModal}
-			onHide={handleClose}
+			onHide={handleCloseSignUp}
 		>
 			<Form onSubmit={handleSubmit(handleSubmitSignUp)} >
 				<Modal.Header>
@@ -68,9 +77,10 @@ function SignUp (props) {
 							type="email"
 							placeholder="email"
 							required
+							onFocus={() => {setDuplicateEmail('');}}
 							{...register('email', { required: true })}
 						/>
-						{isDuplicateEmail && <p>Oops. Looks like {duplicateEmailValue} already has an account.  Try a different email.</p> }
+						{duplicateEmail && <p>Oops. Looks like {duplicateEmail} already has an account.  Try a different email.</p> }
 					</Form.Group>
 					<Form.Group className="mb-3">
 						<Form.Control 
@@ -84,7 +94,11 @@ function SignUp (props) {
 				</Modal.Body>
 				<Modal.Footer>
 					<div>
-						<Button variant="secondary" onClick={ () => {handleClose(); resetErrors();}}>
+						<Button variant="secondary" onClick={ () => {
+							handleCloseSignUp(); 
+							setDuplicateEmail('');
+							reset();
+						}}>
 							Close
 						</Button>
 					</div>
