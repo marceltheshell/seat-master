@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import SignUp from './SignUp';
-
+import LogIn from './LogIn';
 
 function NewHeader () {
 	const [username, setUsername] = useState('');
-	const [showSignUpModal, setShowSignUpModal] = useState(true);
-	const handleClose = () =>  {
-		console.log('inside set close');
+	const [authToken, setAuthToken] = useState(null);
+	const [showSignUpModal, setShowSignUpModal] = useState(false);
+	const [showLogInModal, setShowLogInModal] = useState(true);
+	console.log('auth token', authToken);
+
+	const handleCloseSignUp = () =>  {
 		setShowSignUpModal(false);
 	};
-	const handleShow = () =>  {
-		console.log('inside set show');
+	const handleShowSignUp = () =>  {
 		setShowSignUpModal(true);
+	};
+	const handleCloseLogIn = () => {
+		setShowLogInModal(false);
+	};
+	const handleShowLogIn = () =>  {
+		setShowLogInModal(true);
 	};
 
 	return (
@@ -32,7 +40,7 @@ function NewHeader () {
 						<Nav.Item>
 							<Nav.Link
 								className="brand-fontColor oswald-font link-text-size" 
-								onClick={handleShow}
+								onClick={handleShowSignUp}
 							>
 								Sign Up
 							</Nav.Link>
@@ -40,6 +48,7 @@ function NewHeader () {
 						<Nav.Item>
 							<Nav.Link 
 								className="brand-fontColor oswald-font link-text-size" 
+								onClick={handleShowLogIn}
 							>
 								Login
 							</Nav.Link>
@@ -51,7 +60,8 @@ function NewHeader () {
 								{username && <p> Hello {username}!</p>}
 							</Nav.Link>
 						</Nav.Item>
-						<SignUp handleClose={handleClose} showSignUpModal={showSignUpModal} setUsername={setUsername}/>
+						<SignUp handleCloseSignUp={handleCloseSignUp} showSignUpModal={showSignUpModal} setUsername={setUsername} setAuthToken={setAuthToken}/>
+						<LogIn handleCloseLogIn={handleCloseLogIn} showLogInModal={showLogInModal} setUsername={setUsername} setAuthToken={setAuthToken}/>
 					</Nav>  
 				</Navbar.Collapse>
 			</Navbar>
