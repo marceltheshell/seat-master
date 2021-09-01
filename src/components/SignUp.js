@@ -49,7 +49,7 @@ function SignUp (props) {
 				setCurrentUser(currentUser);
 
 				// persist in session storage or local storage
-				sessionStorage.setItem('user', currentUser);
+				sessionStorage.setItem('user', JSON.stringify(currentUser));
 
 				// close the modal
 				handleCloseSignUp();

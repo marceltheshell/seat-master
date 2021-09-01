@@ -9,7 +9,7 @@ import NotFound from './components/NotFound';
 // import Klass from './Klass';
 
 function App() {
-	const user = sessionStorage.getItem('user');
+	const user = JSON.parse(sessionStorage.getItem('user'));
 	return (
 		<AuthProvider user={user}>
 			<BrowserRouter>
