@@ -14,9 +14,7 @@ function SignUp (props) {
 	const [duplicateEmail, setDuplicateEmail] = useState('');
 	const signUpUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/signup`;
 	const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
-	//let history = useHistory();
 
-	console.log('validation errors', errors);
 	const handleSubmitSignUp = async (data) => {
 		const payload = {
 			'user': {
