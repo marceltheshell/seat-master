@@ -40,6 +40,7 @@ function SignUp (props) {
 				const logInResponse = await SeatMasterApiClient.post(loginUrl, payload);
 				
 				const currentUser = {
+					id: _.get(logInResponse, 'data.data.id'),
 					username: _.get(logInResponse, 'data.data.attributes.username'),
 					authToken: _.get(logInResponse, 'headers.authorization')
 				};

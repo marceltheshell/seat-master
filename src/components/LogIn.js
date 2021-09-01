@@ -36,6 +36,7 @@ function LogIn (props) {
 			}
 
 			const currentUser = {
+				id: _.get(logInResponse, 'data.data.id'),
 				username: _.get(logInResponse, 'data.data.attributes.username'),
 				authToken: _.get(logInResponse, 'headers.authorization')
 			};
