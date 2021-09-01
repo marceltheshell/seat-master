@@ -3,8 +3,10 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
 import { useAuth } from '../context/AuthContext';
+import { Redirect } from 'react-router-dom';
 
 function NewHeader () {
+	const [redirect, setRedirect] = useState();
 	const { currentUser, setCurrentUser } = useAuth();
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
 	const [showLogInModal, setShowLogInModal] = useState(false);
@@ -31,8 +33,12 @@ function NewHeader () {
 	const logOut = () => {
 		setCurrentUser(null);
 		sessionStorage.setItem('user', null);
+		setRedirect('/');
 	};
 
+	if (redirect) {
+		return <Redirect to={redirect} />;
+	}
 
 	return (
 		<Container>

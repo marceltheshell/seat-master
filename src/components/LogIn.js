@@ -3,11 +3,12 @@ import { useAuth } from '../context/AuthContext';
 import { Form, Button, Modal } from 'react-bootstrap';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
 
 function LogIn (props) {
-	
+	const [redirect, setRedirect] = useState(null);
 	const { setCurrentUser } = useAuth();
 	const [loginErrorMessage, setLoginErrorMessage] = useState('');
 	const { handleCloseLogIn, showLogInModal } = props;
@@ -48,11 +49,20 @@ function LogIn (props) {
 			// close the modal
 			handleCloseLogIn();
 
+			// go to klasses page
+			setRedirect('/Klasses');
+
 			
 		} catch (err) {
 			console.log('error in LoginComponent', err);
 		}
 	};
+
+	if (redirect) {
+		return (
+			<Redirect to={redirect} />
+		);
+	}
 
 	return(
 		<Modal

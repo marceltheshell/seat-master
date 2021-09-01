@@ -4,15 +4,17 @@ import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import { useForm } from 'react-hook-form';
 import _ from 'lodash';
 import { useAuth } from '../context/AuthContext';
+import { Redirect } from 'react-router-dom';
 	
 function SignUp (props) {
-
+	const [redirect, setRedirect] = useState(null);
 	const { setCurrentUser } = useAuth();
 	const { register, handleSubmit, reset, formState: { errors } } = useForm();
 	const { showSignUpModal, handleCloseSignUp } = props;
 	const [duplicateEmail, setDuplicateEmail] = useState('');
 	const signUpUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/signup`;
 	const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
+	//let history = useHistory();
 
 	console.log('validation errors', errors);
 	const handleSubmitSignUp = async (data) => {
@@ -53,6 +55,9 @@ function SignUp (props) {
 				// close the modal
 				handleCloseSignUp();
 
+				// go to klasses page
+				setRedirect('/Klasses');
+
 			} catch (err) {
 				console.log('error in login block of Sign Up component', err);
 			}
@@ -61,6 +66,12 @@ function SignUp (props) {
 			console.log('error in Sign Up block of Sign Up component', err);
 		}
 	};
+
+	if (redirect) {
+		return (
+			<Redirect to={redirect} />
+		);
+	}
 	
 	return(
 		<Modal

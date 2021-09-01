@@ -1,8 +1,13 @@
 import React from 'react';
+import NewHeader from './NewHeader';
 
 function Klasses () {
 	return (
-		<p>klasses page</p>
+		<React.Fragment>
+			<NewHeader />
+			<p>klasses page</p>
+		</React.Fragment>
+		
 	);
 }
 
