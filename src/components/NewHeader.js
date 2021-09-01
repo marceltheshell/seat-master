@@ -10,7 +10,6 @@ function NewHeader () {
 	const { currentUser, setCurrentUser } = useAuth();
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
 	const [showLogInModal, setShowLogInModal] = useState(false);
-	// const [showAddSchoolModal, setShowAddSchoolModal] = useState(false);
 
 	const handleCloseSignUp = () =>  {
 		setShowSignUpModal(false);
