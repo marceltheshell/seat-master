@@ -5,7 +5,6 @@ import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
-const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
 
 function LogIn (props) {
 	const [redirect, setRedirect] = useState(null);
@@ -19,6 +18,7 @@ function LogIn (props) {
 		setLoginErrorMessage('');
 	};
 	const handleSubmitLogIn = async (data) => {
+		const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
 		const payload = {
 			'user': {
 				'email': data.email,

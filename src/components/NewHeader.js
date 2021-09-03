@@ -23,12 +23,6 @@ function NewHeader () {
 	const handleShowLogIn = () =>  {
 		setShowLogInModal(true);
 	};
-	// const handleCloseAddSchool = () => {
-	// 	setShowLogInModal(false);
-	// };
-	// const handleShowAddSchool = () =>  {
-	// 	setShowLogInModal(true);
-	// };
 	const logOut = () => {
 		setCurrentUser(null);
 		sessionStorage.setItem('user', null);
