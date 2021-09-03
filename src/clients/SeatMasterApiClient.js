@@ -12,15 +12,14 @@ const setConfig = (authToken) => {
 };
 
 const SeatMasterApiClient = {
-	get: async (url, queryParams, authToken) => {
-		
-		const fullUrl = `${url}/${queryParams}`;
-		console.log('Getting with url: ', fullUrl);
+	get: async (url, authToken) => {
+
+		console.log('Getting with url: ', url);
 
 		const config = setConfig(authToken);
 
 		try {
-			const resp = await axios.get(fullUrl, config);
+			const resp = await axios.get(url, config);
 			console.log('Get response', resp);
 			return resp;
 		} catch (err) {
