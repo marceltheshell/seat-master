@@ -12,13 +12,12 @@ function SignUp (props) {
 	const { register, handleSubmit, reset, formState: { errors } } = useForm();
 	const { showSignUpModal, handleCloseSignUp } = props;
 	const [duplicateEmail, setDuplicateEmail] = useState('');
-	const signUpUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/signup`;
-	const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
+	const signUpUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/signup`;
+	const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/login`;
 
 	const handleSubmitSignUp = async (data) => {
 		const payload = {
 			'user': {
-				'username': data.username,
 				'email': data.email,
 				'password': data.password
 			}
@@ -36,12 +35,11 @@ function SignUp (props) {
 			//
 
 			try {
-				delete payload.username;
 				const logInResponse = await SeatMasterApiClient.post(loginUrl, payload);
 				
 				const currentUser = {
-					id: _.get(logInResponse, 'data.data.id'),
-					username: _.get(logInResponse, 'data.data.attributes.username'),
+					id: _.get(logInResponse, 'data.user.id'),
+					email: _.get(logInResponse, 'data.user.email'),
 					authToken: _.get(logInResponse, 'headers.authorization')
 				};
 
@@ -54,8 +52,10 @@ function SignUp (props) {
 				// close the modal
 				handleCloseSignUp();
 
-				// go to klasses page
-				setRedirect('/Klasses');
+				//redirect
+				if (currentUser) {
+					setRedirect('/Klasses');
+				}
 
 			} catch (err) {
 				console.log('error in login block of Sign Up component', err);
@@ -85,14 +85,6 @@ function SignUp (props) {
 					<p>It's quick and easy</p>
 				</Modal.Header>
 				<Modal.Body>
-					<Form.Group className="mb-3" controlId="validationCustom01">
-						<Form.Control 
-							type="text"
-							required
-							placeholder="username"
-							{...register('username', { required: true })}
-						/>
-					</Form.Group>
 					<Form.Group className="mb-3">
 						<Form.Control 
 							type="email"

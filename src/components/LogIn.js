@@ -18,7 +18,7 @@ function LogIn (props) {
 		setLoginErrorMessage('');
 	};
 	const handleSubmitLogIn = async (data) => {
-		const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/login`;
+		const loginUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/login`;
 		const payload = {
 			'user': {
 				'email': data.email,
@@ -36,8 +36,8 @@ function LogIn (props) {
 			}
 
 			const currentUser = {
-				id: _.get(logInResponse, 'data.data.id'),
-				username: _.get(logInResponse, 'data.data.attributes.username'),
+				id: _.get(logInResponse, 'data.user.id'),
+				email: _.get(logInResponse, 'data.user.email'),
 				authToken: _.get(logInResponse, 'headers.authorization')
 			};
 
@@ -50,8 +50,10 @@ function LogIn (props) {
 			// close the modal
 			handleCloseLogIn();
 
-			// go to klasses page
-			setRedirect('/Klasses');
+			// redirect
+			if (currentUser) {
+				setRedirect('/Klasses');
+			}
 
 			
 		} catch (err) {
