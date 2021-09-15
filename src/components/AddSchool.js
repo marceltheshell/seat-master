@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 
 function AddSchool (props) {
 	const { currentUser } = useAuth();
-	const { showAddSchoolModal, handleCloseAddSchool, setSchool } = props;
+	const { showAddSchoolModal, handleCloseAddSchool, setSchool, school } = props;
 	const { register, handleSubmit, reset } = useForm();
 
 	const resetErrors = () => {
@@ -49,7 +49,7 @@ function AddSchool (props) {
 		>
 			<Form onSubmit={handleSubmit(handleSubmitAddSchool)} >
 				<Modal.Header>
-					<Modal.Title>Add your school</Modal.Title>
+					<Modal.Title>{school ? 'Change' : 'Add'} your school</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form.Group className="mb-3">
@@ -72,7 +72,7 @@ function AddSchool (props) {
 							type="submit"
 							variant="primary"
 						>
-						Add School
+							{school ? 'Change School' : 'Add School'}
 						</Button>
 					</div>
 				</Modal.Footer>
