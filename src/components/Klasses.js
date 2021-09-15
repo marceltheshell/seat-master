@@ -57,7 +57,7 @@ function Klasses () {
 			// get the klasses with the user id in the url first
 			const getKlassesUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/klasses`;
 			const klasses = await SeatMasterApiClient.get(getKlassesUrl, currentUser.authToken );
-			setKlasses(klasses);
+			setKlasses(klasses.data);
 			hasFetchedKlasses.current = true;
 		}
 	};
@@ -80,7 +80,7 @@ function Klasses () {
 					</Col>
 				</Row>
 				<Row className="klass-card-deck-style">
-					{Boolean(klasses) && klasses.data && (klasses.data.map((klass) => {
+					{Boolean(klasses) && (klasses.map((klass) => {
 						return (
 							<Link 
 								className="klass-card-style" 
@@ -107,8 +107,6 @@ function Klasses () {
 							</Card.Body>
 						</Card>
 					</Link>
-				</Row>
-				<Row>
 				</Row>
 			</Container>
 			<AddSchool handleCloseAddSchool={handleCloseAddSchool} showAddSchoolModal={showAddSchoolModal} setSchool={setSchool}/>
