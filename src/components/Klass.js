@@ -9,6 +9,7 @@ import Header from './Header';
 import AddStudent from './AddStudent';
 import KlassHeader from './KlassHeader';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
+import StudentsSeatingChartsHeader from './StudentsSeatingChartsHeader';
 import { useAuth } from '../context/AuthContext';
 import { PlusCircle } from 'react-bootstrap-icons';
 //import Student from './Student';
@@ -77,6 +78,7 @@ function Klass({match}) {
 		<React.Fragment>
 			<Header/>
 			<KlassHeader klass={klass} />
+			<StudentsSeatingChartsHeader />
 			<Container>
 				<Row className="klass-card-deck-style">
 					{Boolean(students) && students && (students.map((student) => {
