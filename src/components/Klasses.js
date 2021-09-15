@@ -6,7 +6,6 @@ import AddSchool from './AddSchool';
 import AddKlass from './AddKlass';
 import SchoolDisplayHeader from './SchoolDisplayHeader';
 import { Col, Row, Container, Card } from 'react-bootstrap';
-// eslint-disable-next-line no-unused-vars
 import { PlusCircle } from 'react-bootstrap-icons';
 // eslint-disable-next-line no-unused-vars
 import { useRouteMatch, Link } from 'react-router-dom';
@@ -30,7 +29,6 @@ function Klasses () {
 	const handleCloseAddKlass = () => {
 		setShowAddKlassModal(false);
 	};
-	// eslint-disable-next-line no-unused-vars
 	const handleShowAddKlass = () => {
 		setShowAddKlassModal(true);
 	};
@@ -82,23 +80,17 @@ function Klasses () {
 					</Col>
 				</Row>
 				<Row className="klass-card-deck-style">
-					{Boolean(klasses) && klasses.data && (klasses.data.map((value) => {
+					{Boolean(klasses) && klasses.data && (klasses.data.map((klass) => {
 						return (
 							<Link 
 								className="klass-card-style" 
-								to={{
-									pathname: `your_mom/${value.id}`,
-									state: {
-										klasses: klasses 
-									}
-								}}
-								key={value.id}
+								to={`/klasses/${klass.id}`}
+								key={klass.id}
 							>	
 								<Card className="text-center" >
 									{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
 									<Card.Body>
-										<Card.Title >{value.name}</Card.Title>
-										<Card.Subtitle>{value.school_name}</Card.Subtitle>
+										<Card.Title >{klass.name}</Card.Title>
 									</Card.Body>
 								</Card>
 							</Link>		
