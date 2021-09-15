@@ -52,9 +52,17 @@
   align-items: center;
 }
 
-.card-style {
-  background-color: #05386B;
+.klass-card-deck-style {
+  justify-content: center;
+  display: flex !important;
+  flex-direction: 'row';
+}
+
+.klass-card-style {
   text-decoration: none !important;
+  flex: 1 !important;
+  /* width: '18rem'; */
+  max-width: 30%;
 }
 
 a:link {
@@ -73,11 +81,7 @@ a:active {
   text-decoration: underline;
 }
 
-.card-deck-style {
-  justify-content: center;
-  display: flex !important;
-  flex-direction: 'row';
-}
+
 
 /* .block-header {
   font-size: 4.5rem;
@@ -85,8 +89,4 @@ a:active {
   color: #EDF5E1;
 } */
 
-.card-style {
-  max-width: 30%;
-  flex: 1 !important;
-}
 

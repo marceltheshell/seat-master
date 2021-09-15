@@ -79,25 +79,24 @@ function Klasses () {
 						<h1 className="block-header">My classes</h1>
 					</Col>
 				</Row>
-				<Row className="card-deck-style">
-					{klasses && klasses.data && (klasses.data.map((value) => {
+				<Row className="klass-card-deck-style">
+					{Boolean(klasses) && klasses.data && (klasses.data.map((value) => {
 						return (
-							<Link to={{
+							<Link className="klass-card-style" to={{
 								pathname: `your_mom/${value.id}`,
 								state: {
 									klasses: klasses 
 								}
 							}}
 							key={value.id}
-							>	<div className="card-style">
-									<Card style={{ width: '18rem' }}>
-										{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
-										<Card.Body>
-											<Card.Title >{value.name}</Card.Title>
-											<Card.Subtitle>{value.school_name}</Card.Subtitle>
-										</Card.Body>
-									</Card>
-								</div>
+							>	
+								<Card >
+									{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
+									<Card.Body>
+										<Card.Title >{value.name}</Card.Title>
+										<Card.Subtitle>{value.school_name}</Card.Subtitle>
+									</Card.Body>
+								</Card>
 							</Link>		
 						);
 					}))}
