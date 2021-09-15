@@ -13,7 +13,7 @@ function SchoolDisplayHeader (props) {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ms-auto">
-						<Nav.Item>
+						<Nav.Item className="d-flex align-items-center">
 							{ Boolean(school) && school.name}
 						</Nav.Item>
 						<Nav.Item>
