@@ -6,30 +6,47 @@ import { Card, Container, Row, Col, ToggleButtonGroup, ToggleButton, Button, Mod
 import { Link, useRouteMatch } from 'react-router-dom';
 //import RankDetails from './RankDetails';
 import Header from './Header';
+import AddStudent from './AddStudent';
 import KlassHeader from './KlassHeader';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import { useAuth } from '../context/AuthContext';
+import { PlusCircle } from 'react-bootstrap-icons';
 //import Student from './Student';
 //import UpdateStudentForm from './UpdateStudentForm';
 //import AddStudentForm from './AddStudentForm';
 
 function Klass({match}) {
-	const { currentUser } = useAuth();
+	
 	useEffect(() => {
 		fetchKlass();
+		fetchStudents();
 	}, []);
-	// eslint-disable-next-line no-unused-vars
+
+	const { currentUser } = useAuth();
 	const [klass, setKlass] = useState( {} );
-	// const [showRanks, setShowRanks] = useState( false );
-	// const [student, setStudent] = useState( {} );
+	const [students, setStudents] = useState([]);
+	const [showAddStudentModal, setShowAddStudentModal] = useState( false );
 	// const [editStudentModalShow, setEditStudentModalShow] = useState( false );
-	// const [AddStudentModalShow, setAddStudentModalShow] = useState( false );
+	// const [showRanks, setShowRanks] = useState( false );
+	
+	const handleShowAddStudent = () => {
+		setShowAddStudentModal(true);
+	};
+
+	const handleCloseAddStudent = () => {
+		setShowAddStudentModal(false);
+	};
 
 	const fetchKlass = async () => {
 		const fetchKlassUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/klasses/${match.params.id}`;
-		// eslint-disable-next-line no-unused-vars
 		const response = await SeatMasterApiClient.get(fetchKlassUrl, currentUser.authToken);
 		setKlass(response.data);
+	};
+
+	const fetchStudents = async () => {
+		const fetchStudentsUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/students`;
+		const response = await SeatMasterApiClient.get(fetchStudentsUrl, currentUser.authToken);
+		setStudents(response.data);
 	};
 
 	// const updateStudent = async (student) => {
@@ -61,33 +78,39 @@ function Klass({match}) {
 			<Header/>
 			<KlassHeader klass={klass} />
 			<Container>
-				<Col>
-					<h1 className="block-header" > Students</h1>
-				</Col>
-				<Col>
-					{klass.students && (klass.students.map((value, idx) => {
+				<Row className="klass-card-deck-style">
+					{Boolean(students) && students && (students.map((student) => {
 						return (
-							<Card
-								//onClick={() => onCardClick(value)}
-								key={idx}
-							>
-								{/* <Card.Header as="h5"></Card.Header> */}
-								<Card.Body>
-									{value.first_name}
-								</Card.Body>
-								<Card.Body>
-									<Button 
-										className="oswald-font link-text-size" 
-										variant="primary" 
-										//onClick={() => {setEditStudentModalShow(true)}} 
-									>
-										Edit
-									</Button>
-								</Card.Body>
-							</Card>
+							<Link 
+								className="klass-card-style" 
+								to={`/students/${student.id}`}
+								key={student.id}
+							>	
+								<Card className="text-center" >
+									{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
+									<Card.Body>
+										<Card.Text >{student.name}</Card.Text>
+									</Card.Body>
+								</Card>
+							</Link>		
 						);
 					}))}
-				</Col>
+					<Link
+						className="klass-card-style"
+						onClick={handleShowAddStudent}
+					>
+						<Card >
+							<Card.Body>
+								<Row>
+									<Col>
+										<h2 className="text-center"><PlusCircle /></h2>
+									</Col>
+								</Row>
+							</Card.Body>
+						</Card>
+					</Link>
+				</Row>
+				<AddStudent showAddStudentModal={showAddStudentModal} handleCloseAddStudent={handleCloseAddStudent} />
 			</Container>
 		</React.Fragment>
 	);
