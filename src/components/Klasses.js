@@ -7,6 +7,8 @@ import AddKlass from './AddKlass';
 import SchoolDisplayHeader from './SchoolDisplayHeader';
 import { Col, Row, Container, Card } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
+import { ArrowRight } from 'react-bootstrap-icons';
+// eslint-disable-next-line no-unused-vars
 import { useRouteMatch, Link } from 'react-router-dom';
 
 function Klasses () {
@@ -82,15 +84,17 @@ function Klasses () {
 				<Row className="klass-card-deck-style">
 					{Boolean(klasses) && klasses.data && (klasses.data.map((value) => {
 						return (
-							<Link className="klass-card-style" to={{
-								pathname: `your_mom/${value.id}`,
-								state: {
-									klasses: klasses 
-								}
-							}}
-							key={value.id}
+							<Link 
+								className="klass-card-style" 
+								to={{
+									pathname: `your_mom/${value.id}`,
+									state: {
+										klasses: klasses 
+									}
+								}}
+								key={value.id}
 							>	
-								<Card >
+								<Card className="text-center" >
 									{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
 									<Card.Body>
 										<Card.Title >{value.name}</Card.Title>
@@ -100,6 +104,16 @@ function Klasses () {
 							</Link>		
 						);
 					}))}
+					<Link
+						className="klass-card-style"
+						onClick={handleShowAddKlass}
+					>
+						<Card >
+							<Card.Body>
+								<Card.Title className="text-center" >Add new class</Card.Title>
+							</Card.Body>
+						</Card>
+					</Link>
 				</Row>
 				<Row>
 				</Row>
