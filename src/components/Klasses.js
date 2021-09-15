@@ -7,7 +7,7 @@ import AddKlass from './AddKlass';
 import SchoolDisplayHeader from './SchoolDisplayHeader';
 import { Col, Row, Container, Card } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
-import { ArrowRight } from 'react-bootstrap-icons';
+import { PlusCircle } from 'react-bootstrap-icons';
 // eslint-disable-next-line no-unused-vars
 import { useRouteMatch, Link } from 'react-router-dom';
 
@@ -111,24 +111,13 @@ function Klasses () {
 						<Card >
 							<Card.Body>
 								<Card.Title className="text-center" >Add new class</Card.Title>
+								<h2 className="text-center"><PlusCircle /></h2>
 							</Card.Body>
 						</Card>
 					</Link>
 				</Row>
 				<Row>
 				</Row>
-				{/* <Row>
-					<Col>
-						<Button 
-							className="oswald-font link-text-size" 
-							variant="primary" 
-							onClick={handleShowAddKlass}
-						>
-							Add New Class
-						</Button>
-						
-					</Col>
-				</Row> */}
 			</Container>
 			<AddSchool handleCloseAddSchool={handleCloseAddSchool} showAddSchoolModal={showAddSchoolModal} setSchool={setSchool}/>
 			<AddKlass handleCloseAddKlass={handleCloseAddKlass} showAddKlassModal={showAddKlassModal} school={school}/>

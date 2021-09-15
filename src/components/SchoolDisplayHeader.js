@@ -10,21 +10,18 @@ function SchoolDisplayHeader (props) {
 	return (
 		<Container>
 			<Navbar className="navbarClass" expand="lg">
-				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav">
-					<Nav className="ms-auto">
-						<Nav.Item className="d-flex align-items-center">
-							{ Boolean(school) && school.name}
-						</Nav.Item>
-						<Nav.Item>
-							<Button
-								onClick={handleShowAddSchool}
-							>
-								{school ? 'Change School' : 'Add School'}
-							</Button>
-						</Nav.Item>
-					</Nav>
-				</Navbar.Collapse>
+				<Nav className="ms-auto">
+					<Nav.Item className="d-flex align-items-center">
+						{ Boolean(school) && school.name}
+					</Nav.Item>
+					<Nav.Item>
+						<Button
+							onClick={handleShowAddSchool}
+						>
+							{school ? 'Change School' : 'Add School'}
+						</Button>
+					</Nav.Item>
+				</Nav>
 			</Navbar>
 		</Container>
 	);
