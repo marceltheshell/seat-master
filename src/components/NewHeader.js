@@ -5,7 +5,7 @@ import LogIn from './LogIn';
 import { useAuth } from '../context/AuthContext';
 import { Redirect } from 'react-router-dom';
 
-function NewHeader () {
+function Header () {
 	const [redirect, setRedirect] = useState();
 	const { currentUser, setCurrentUser } = useAuth();
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -88,4 +88,4 @@ function NewHeader () {
 
 }
 
-export default NewHeader;
+export default Header;

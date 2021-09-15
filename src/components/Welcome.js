@@ -1,11 +1,11 @@
 import React from 'react';
-import NewHeader from './NewHeader';
+import Header from './Header';
 import { Container, Col, Row, Button } from 'react-bootstrap';
 
 function Welcome () {  
 	return (
 		<React.Fragment>
-			<NewHeader/>
+			<Header/>
 			<Container className="mt-5">
 				<Row>
 					<Col>
