@@ -54,15 +54,13 @@
 
 .klass-card-deck-style {
   justify-content: center;
-  display: flex !important;
+  display: flex;
   flex-direction: 'row';
 }
 
 .klass-card-style {
   text-decoration: none !important;
-  flex: 1 !important;
-  /* width: '18rem'; */
-  max-width: 30%;
+  flex: 1;
 }
 
 a:link {
