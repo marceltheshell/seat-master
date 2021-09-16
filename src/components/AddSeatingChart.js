@@ -1,55 +1,40 @@
 import React from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
+// eslint-disable-next-line no-unused-vars
 import { useAuth } from '../context/AuthContext';
+// eslint-disable-next-line no-unused-vars
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
+// eslint-disable-next-line no-unused-vars
 import { useForm } from 'react-hook-form';
 //import { Redirect } from 'react-router-dom';
 
-function AddKlass (props) {
-	const { currentUser } = useAuth();
-	const { showAddKlassModal, handleCloseAddKlass } = props;
+function AddSeatingChart (props) {
+	// const { currentUser } = useAuth();
+	const { showAddSeatingChartModal, handleCloseAddSeatingChart } = props;
+	// eslint-disable-next-line no-unused-vars
 	const { register, handleSubmit, reset } = useForm();
 
 	const resetErrors = () => {
 		reset();
 	};
 
-	const handleSubmitAddKlass = async (data) => {
-		const addKlassUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/api/users/${currentUser.id}/schools`;
-		const payload = {
-			'school': {
-				'name': data.name
-			}
-		};
-
-		try {
-			const addKlassResponse = await SeatMasterApiClient.post(addKlassUrl, payload, currentUser.authToken);
-			console.log(addKlassResponse);
-
-			if(addKlassResponse.status === 401) {
-				reset();
-				return;
-			}
-
-			handleCloseAddKlass();
-
-		} catch(err) {
-			console.log('Err in Add Klass', err);
-		}
+	// eslint-disable-next-line no-unused-vars
+	const handleSubmitAddSeatingChart = async (data) => {
+	
 	};
 	
 	return (
 		<Modal
 			aria-labelledby="contained-modal-title-vcenter"
 			centered
-			show={showAddKlassModal}
-			onHide={handleCloseAddKlass}
+			show={showAddSeatingChartModal}
+			onHide={handleCloseAddSeatingChart}
 		>
-			<Form onSubmit={handleSubmit(handleSubmitAddKlass)} >
+			<Form onSubmit={handleSubmit(handleSubmitAddSeatingChart)} >
 				<Modal.Header>
-					<Modal.Title>Add your school</Modal.Title>
+					<Modal.Title>Create New Seating Chart</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
+				{/* <Modal.Body>
 					<Form.Group className="mb-3">
 						<Form.Control 
 							type="string"
@@ -58,10 +43,10 @@ function AddKlass (props) {
 							{...register('name', { required: true })}
 						/>
 					</Form.Group>
-				</Modal.Body>
+				</Modal.Body> */}
 				<Modal.Footer>
 					<div>
-						<Button variant="secondary" onClick={ () => {handleCloseAddKlass(); resetErrors();}}>
+						<Button variant="secondary" onClick={ () => {handleCloseAddSeatingChart(); resetErrors();}}>
 							Cancel
 						</Button>
 					</div>
@@ -70,7 +55,7 @@ function AddKlass (props) {
 							type="submit"
 							variant="primary"
 						>
-						Save
+							Save
 						</Button>
 					</div>
 				</Modal.Footer>
@@ -79,4 +64,4 @@ function AddKlass (props) {
 	);
 }
 
-export default AddKlass;
+export default AddSeatingChart;

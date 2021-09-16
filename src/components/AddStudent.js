@@ -62,7 +62,7 @@ function AddStudent (props) {
 				<Modal.Footer>
 					<div>
 						<Button variant="secondary" onClick={ () => {handleCloseAddStudent(); resetErrors();}}>
-							Close
+							Cancel
 						</Button>
 					</div>
 					<div className="row justify-content-center">
@@ -70,7 +70,7 @@ function AddStudent (props) {
 							type="submit"
 							variant="primary"
 						>
-						Add Student
+						Save
 						</Button>
 					</div>
 				</Modal.Footer>

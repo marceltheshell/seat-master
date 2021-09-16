@@ -64,7 +64,7 @@ function AddSchool (props) {
 				<Modal.Footer>
 					<div>
 						<Button variant="secondary" onClick={ () => {handleCloseAddSchool(); resetErrors();}}>
-							Close
+							Cancel
 						</Button>
 					</div>
 					<div className="row justify-content-center">
