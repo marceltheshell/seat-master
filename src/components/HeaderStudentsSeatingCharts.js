@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
-function StudentsSeatingChartsHeader ( props ) {
+function HeaderStudentsSeatingCharts ( props ) {
 	const { setStudentsView } = props;
 	const handleChange = (val) => {
 		if (val === 1) setStudentsView(true);
@@ -28,4 +28,4 @@ function StudentsSeatingChartsHeader ( props ) {
 
 }
 
-export default StudentsSeatingChartsHeader;
+export default HeaderStudentsSeatingCharts;

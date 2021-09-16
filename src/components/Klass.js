@@ -1,15 +1,15 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { Card, Container, Row, Col, ToggleButtonGroup, ToggleButton, Button, Modal } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
 import { Link, useRouteMatch } from 'react-router-dom';
 //import RankDetails from './RankDetails';
-import Header from './Header';
+import HeaderNav from './HeaderNav';
 import AddStudent from './AddStudent';
-import KlassHeader from './KlassHeader';
+import HeaderKlass from './HeaderKlass';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
-import StudentsSeatingChartsHeader from './StudentsSeatingChartsHeader';
+import HeaderStudentsSeatingCharts from './HeaderStudentsSeatingCharts';
 import { useAuth } from '../context/AuthContext';
 import { PlusCircle } from 'react-bootstrap-icons';
 //import Student from './Student';
@@ -19,6 +19,8 @@ import { PlusCircle } from 'react-bootstrap-icons';
 function Klass({match}) {
 	
 	const { currentUser } = useAuth();
+	const hasFetchedStudents = useRef(false);
+	const hasFetchedKlass = useRef(false);
 	const [klass, setKlass] = useState( {} );
 	const [studentsView, setStudentsView] = useState(true);
 	const [students, setStudents] = useState([]);
@@ -35,15 +37,21 @@ function Klass({match}) {
 	};
 
 	const fetchKlass = async () => {
-		const fetchKlassUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/klasses/${match.params.id}`;
-		const response = await SeatMasterApiClient.get(fetchKlassUrl, currentUser.authToken);
-		setKlass(response.data);
+		if (!hasFetchedKlass) {
+			const fetchKlassUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/klasses/${match.params.id}`;
+			const response = await SeatMasterApiClient.get(fetchKlassUrl, currentUser.authToken);
+			setKlass(response.data);
+			hasFetchedKlass.current = true;
+		}
 	};
 
 	const fetchStudents = async () => {
-		const fetchStudentsUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/students`;
-		const response = await SeatMasterApiClient.get(fetchStudentsUrl, currentUser.authToken);
-		setStudents(response.data);
+		if (!hasFetchedStudents.current) {
+			const fetchStudentsUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/students`;
+			const response = await SeatMasterApiClient.get(fetchStudentsUrl, currentUser.authToken);
+			setStudents(response.data);
+			hasFetchedStudents.current = true;
+		}
 	};
 
 	// const updateStudent = async (student) => {
@@ -73,13 +81,13 @@ function Klass({match}) {
 	useEffect(() => {
 		fetchKlass();
 		fetchStudents();
-	}, []);
+	}, [fetchKlass, fetchStudents]);
 	
 	return (
 		<React.Fragment>
-			<Header/>
-			<KlassHeader klass={klass} />
-			<StudentsSeatingChartsHeader setStudentsView={setStudentsView} />
+			<HeaderNav/>
+			<HeaderKlass klass={klass} />
+			<HeaderStudentsSeatingCharts setStudentsView={setStudentsView} />
 			<Container>
 				<Row className="klass-card-deck-style">
 					{studentsView && Boolean(students) && students && (students.map((student) => {

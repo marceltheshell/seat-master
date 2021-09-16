@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Header from './Header';
+import HeaderNav from './HeaderNav';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import { useAuth } from '../context/AuthContext';
 import AddSchool from './AddSchool';
 import AddKlass from './AddKlass';
-import SchoolDisplayHeader from './SchoolDisplayHeader';
+import HeaderSchoolDisplay from './HeaderSchoolDisplay';
 import { Col, Row, Container, Card } from 'react-bootstrap';
 import { PlusCircle } from 'react-bootstrap-icons';
 // eslint-disable-next-line no-unused-vars
@@ -71,8 +71,8 @@ function Klasses () {
 	
 	return (
 		<React.Fragment>
-			<Header />
-			<SchoolDisplayHeader school={school} handleShowAddSchool={handleShowAddSchool} />
+			<HeaderNav />
+			<HeaderSchoolDisplay school={school} handleShowAddSchool={handleShowAddSchool} />
 			<Container>
 				<Row>
 					<Col>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
-function KlassHeader (props) {
+function HeaderKlass (props) {
 	const { klass } = props;
 	return (
 		<Container>
@@ -17,4 +17,4 @@ function KlassHeader (props) {
 
 }
 
-export default KlassHeader;
+export default HeaderKlass;

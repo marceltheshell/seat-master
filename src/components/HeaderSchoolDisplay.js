@@ -3,7 +3,7 @@ import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
 import { useAuth } from '../context/AuthContext';
 
-function SchoolDisplayHeader (props) {
+function HeaderSchoolDisplay (props) {
 	//const { currentUser } = useAuth();
 	// eslint-disable-next-line no-unused-vars
 	const { school, handleShowAddSchool } = props;
@@ -28,4 +28,4 @@ function SchoolDisplayHeader (props) {
 
 }
 
-export default SchoolDisplayHeader;
+export default HeaderSchoolDisplay;
