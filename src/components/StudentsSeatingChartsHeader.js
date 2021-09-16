@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navbar, Nav, Container, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
-function StudentsSeatingChartsHeader () {
+function StudentsSeatingChartsHeader ( props ) {
+	const { setStudentsView } = props;
 	const handleChange = (val) => {
-		
-		console.log('val', val);
+		if (val === 1) setStudentsView(true);
+		if (val === 2) setStudentsView(false);
 	};
 	return (
 		<Container>

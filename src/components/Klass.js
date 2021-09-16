@@ -18,13 +18,9 @@ import { PlusCircle } from 'react-bootstrap-icons';
 
 function Klass({match}) {
 	
-	useEffect(() => {
-		fetchKlass();
-		fetchStudents();
-	}, []);
-
 	const { currentUser } = useAuth();
 	const [klass, setKlass] = useState( {} );
+	const [studentsView, setStudentsView] = useState(true);
 	const [students, setStudents] = useState([]);
 	const [showAddStudentModal, setShowAddStudentModal] = useState( false );
 	// const [editStudentModalShow, setEditStudentModalShow] = useState( false );
@@ -73,15 +69,20 @@ function Klass({match}) {
 	// 	setStudent(value);
 	// 	setShowRanks(true);
 	// };
+
+	useEffect(() => {
+		fetchKlass();
+		fetchStudents();
+	}, []);
 	
 	return (
 		<React.Fragment>
 			<Header/>
 			<KlassHeader klass={klass} />
-			<StudentsSeatingChartsHeader />
+			<StudentsSeatingChartsHeader setStudentsView={setStudentsView} />
 			<Container>
 				<Row className="klass-card-deck-style">
-					{Boolean(students) && students && (students.map((student) => {
+					{studentsView && Boolean(students) && students && (students.map((student) => {
 						return (
 							<Link 
 								className="klass-card-style" 
@@ -97,7 +98,7 @@ function Klass({match}) {
 							</Link>		
 						);
 					}))}
-					<Link
+					{studentsView && <Link
 						className="klass-card-style"
 						onClick={handleShowAddStudent}
 					>
@@ -110,7 +111,7 @@ function Klass({match}) {
 								</Row>
 							</Card.Body>
 						</Card>
-					</Link>
+					</Link>}
 				</Row>
 				<AddStudent showAddStudentModal={showAddStudentModal} handleCloseAddStudent={handleCloseAddStudent} />
 			</Container>
