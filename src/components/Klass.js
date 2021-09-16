@@ -10,8 +10,10 @@ import AddStudent from './AddStudent';
 import HeaderKlass from './HeaderKlass';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import HeaderStudentsSeatingCharts from './HeaderStudentsSeatingCharts';
+import AddSeatingChart from './AddSeatingChart';
 import { useAuth } from '../context/AuthContext';
 import { PlusCircle } from 'react-bootstrap-icons';
+import SeatingChart from './SeatingChart';
 //import Student from './Student';
 //import UpdateStudentForm from './UpdateStudentForm';
 //import AddStudentForm from './AddStudentForm';
@@ -21,13 +23,23 @@ function Klass({match}) {
 	const { currentUser } = useAuth();
 	const hasFetchedStudents = useRef(false);
 	const hasFetchedKlass = useRef(false);
+	const hasFetchedSeatingCharts = useRef(false);
 	const [klass, setKlass] = useState( {} );
 	const [studentsView, setStudentsView] = useState(true);
 	const [students, setStudents] = useState([]);
+	const [seatingCharts, setSeatingCharts] = useState([]);
 	const [showAddStudentModal, setShowAddStudentModal] = useState( false );
+	const [showAddSeatingChartModal, setShowAddSeatingChartModal] = useState( false );
 	// const [editStudentModalShow, setEditStudentModalShow] = useState( false );
 	// const [showRanks, setShowRanks] = useState( false );
-	
+	const handleShowAddSeatingChart = () => {
+		setShowAddSeatingChartModal(true);
+	};
+
+	const handleCloseAddSeatingChart = () => {
+		setShowAddSeatingChartModal(false);
+	};
+
 	const handleShowAddStudent = () => {
 		setShowAddStudentModal(true);
 	};
@@ -51,6 +63,15 @@ function Klass({match}) {
 			const response = await SeatMasterApiClient.get(fetchStudentsUrl, currentUser.authToken);
 			setStudents(response.data);
 			hasFetchedStudents.current = true;
+		}
+	};
+
+	const fetchSeatingCharts = async () => {
+		if (!hasFetchedSeatingCharts.current) {
+			const fetchStudentsUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/students`;
+			const response = await SeatMasterApiClient.get(fetchStudentsUrl, currentUser.authToken);
+			setSeatingCharts(response.data);
+			hasFetchedSeatingCharts.current = true;
 		}
 	};
 
@@ -81,15 +102,17 @@ function Klass({match}) {
 	useEffect(() => {
 		fetchKlass();
 		fetchStudents();
-	}, [fetchKlass, fetchStudents]);
+		fetchSeatingCharts();
+	}, [fetchKlass, fetchStudents, fetchSeatingCharts]);
 	
 	return (
 		<React.Fragment>
 			<HeaderNav/>
 			<HeaderKlass klass={klass} />
-			<HeaderStudentsSeatingCharts setStudentsView={setStudentsView} />
+			<HeaderStudentsSeatingCharts studentsView={studentsView} setStudentsView={setStudentsView} handleShowAddSeatingChart={handleShowAddSeatingChart} seatingCharts={seatingCharts} />
 			<Container>
 				<Row className="klass-card-deck-style">
+					{!studentsView && <SeatingChart seatingCharts={seatingCharts} />}
 					{studentsView && Boolean(students) && students && (students.map((student) => {
 						return (
 							<Link 
@@ -122,6 +145,7 @@ function Klass({match}) {
 					</Link>}
 				</Row>
 				<AddStudent showAddStudentModal={showAddStudentModal} handleCloseAddStudent={handleCloseAddStudent} />
+				<AddSeatingChart handleCloseAddSeatingChart={handleCloseAddSeatingChart} showAddSeatingChartModal={showAddSeatingChartModal} />
 			</Container>
 		</React.Fragment>
 	);

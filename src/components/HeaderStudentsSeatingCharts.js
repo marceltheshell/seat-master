@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Container, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { PlusCircle } from 'react-bootstrap-icons';
 
 function HeaderStudentsSeatingCharts ( props ) {
 	const { setStudentsView, studentsView, handleShowAddSeatingChart } = props;
-	
+	// eslint-disable-next-line no-unused-vars
+	const [showEditSeatingChartModal, setShowEditSeatingChartModal] = useState(false);
 	const handleChange = (val) => {
 		if (val === 1) setStudentsView(true);
 		if (val === 2) setStudentsView(false);
