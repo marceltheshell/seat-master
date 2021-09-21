@@ -34,16 +34,20 @@ function AddSeatingChart (props) {
 				<Modal.Header>
 					<Modal.Title>Create New Seating Chart</Modal.Title>
 				</Modal.Header>
-				{/* <Modal.Body>
-					<Form.Group className="mb-3">
+				<Modal.Body>
+					<Row>
+						<Col>Col one</Col>
+						<Col>Col two</Col>
+					</Row>
+					{/* <Form.Group className="mb-3">
 						<Form.Control 
 							type="string"
 							placeholder="name of school"
 							required
 							{...register('name', { required: true })}
 						/>
-					</Form.Group>
-				</Modal.Body> */}
+					</Form.Group> */}
+				</Modal.Body>
 				<Modal.Footer>
 					<div>
 						<Button variant="secondary" onClick={ () => {handleCloseAddSeatingChart(); resetErrors();}}>

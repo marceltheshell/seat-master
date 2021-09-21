@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { Redirect } from 'react-router-dom';
 
 function Header () {
+	// eslint-disable-next-line no-unused-vars
 	const [redirect, setRedirect] = useState();
 	const { currentUser, setCurrentUser } = useAuth();
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
