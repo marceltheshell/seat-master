@@ -48,8 +48,15 @@
 
 .center-vertically {
   display: flex;
-  justify-content: center;
   align-items: center;
+}
+
+.padding-top {
+  padding-top: 20px;
+}
+
+.center-horizontally {
+  justify-content: center;
 }
 
 .klass-card-deck-style {

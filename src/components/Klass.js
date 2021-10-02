@@ -23,7 +23,7 @@ function Klass({match}) {
 	const hasFetchedStudents = useRef(false);
 	const hasFetchedKlass = useRef(false);
 	const hasFetchedSeatingCharts = useRef(false);
-	const [klass, setKlass] = useState( {} );
+	const [klass, setKlass] = useState({});
 	const [studentsView, setStudentsView] = useState(true);
 	const [students, setStudents] = useState([]);
 	const [seatingCharts, setSeatingCharts] = useState([]);
@@ -41,7 +41,7 @@ function Klass({match}) {
 	};
 
 	const fetchKlass = async () => {
-		if (!hasFetchedKlass) {
+		if (!hasFetchedKlass.current) {
 			const fetchKlassUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/klasses/${match.params.id}`;
 			const response = await SeatMasterApiClient.get(fetchKlassUrl, currentUser.authToken);
 			setKlass(response.data);
@@ -102,41 +102,41 @@ function Klass({match}) {
 			<HeaderNav/>
 			<HeaderKlass klass={klass} />
 			<HeaderStudentsSeatingCharts  setStudentsView={setStudentsView} />
-			<HeaderSeatingCharts studentsView={studentsView} seatingCharts={seatingCharts} setSeatingChart={setSeatingChart} />
+			<HeaderSeatingCharts studentsView={studentsView} seatingCharts={seatingCharts} setSeatingChart={setSeatingChart} klass={klass} />
 			<Container>
-				<Row className="klass-card-deck-style">
-					{!studentsView && <SeatingChart seatingChart={seatingChart} />}
-					{studentsView && Boolean(students) && students && (students.map((student) => {
-						return (
-							<Link 
-								className="klass-card-style" 
-								to={`/students/${student.id}`}
-								key={student.id}
-							>	
-								<Card className="text-center" >
-									{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
-									<Card.Body>
-										<Card.Text >{student.name}</Card.Text>
-									</Card.Body>
-								</Card>
-							</Link>		
-						);
-					}))}
-					{studentsView && <Link
-						className="klass-card-style"
-						onClick={handleShowAddStudent}
-					>
-						<Card >
-							<Card.Body>
-								<Row>
-									<Col>
-										<h2 className="text-center"><PlusCircle /></h2>
-									</Col>
-								</Row>
-							</Card.Body>
-						</Card>
-					</Link>}
-				</Row>
+				{/* <Row className="klass-card-deck-style"> */}
+				{!studentsView && <SeatingChart seatingChart={seatingChart} />}
+				{studentsView && Boolean(students) && students && (students.map((student) => {
+					return (
+						<Link 
+							// className="klass-card-style"
+							to={`/students/${student.id}`}
+							key={student.id}
+						>	
+							<Card className="text-center klass-card-style" >
+								{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
+								<Card.Body>
+									<Card.Text >{student.name}</Card.Text>
+								</Card.Body>
+							</Card>
+						</Link>		
+					);
+				}))}
+				{studentsView && <Link
+					className="klass-card-style"
+					onClick={handleShowAddStudent}
+				>
+					<Card >
+						<Card.Body>
+							<Row>
+								<Col>
+									<h2 className="text-center"><PlusCircle /></h2>
+								</Col>
+							</Row>
+						</Card.Body>
+					</Card>
+				</Link>}
+				{/* </Row> */}
 				<AddStudent showAddStudentModal={showAddStudentModal} handleCloseAddStudent={handleCloseAddStudent} />
 			</Container>
 		</React.Fragment>
