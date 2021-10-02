@@ -11,7 +11,7 @@ function HeaderSchoolDisplay (props) {
 		<Container>
 			<Navbar className="navbarClass" expand="lg">
 				<Nav className="ms-auto">
-					<Nav.Item className="d-flex align-items-center">
+					<Nav.Item className="d-flex align-items-center" style={{paddingRight:'24px'}}>
 						{ Boolean(school) && school.name}
 					</Nav.Item>
 					<Nav.Item>

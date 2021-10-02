@@ -6,9 +6,8 @@ import EditSeatingChart from './EditSeatingChart';
 import { Gear } from 'react-bootstrap-icons';
 
 function HeaderSeatingCharts ( props ) {
-	// eslint-disable-next-line no-unused-vars
-	const { studentsView, seatingCharts, setSeatingChart } = props;
-	const [showAddSeatingChartModal, setShowAddSeatingChartModal] = useState( false );
+	const { studentsView, seatingCharts, setSeatingChart, klass } = props;
+	const [showAddSeatingChartModal, setShowAddSeatingChartModal] = useState( true );
 	const [showEditSeatingChartModal, setShowEditSeatingChartModal] = useState( false );
 	
 	const pickSeatingChart = (sc_id) => {
@@ -37,25 +36,10 @@ function HeaderSeatingCharts ( props ) {
 	return (
 		<Container>
 			<Navbar className="navbarClass" expand="lg">
-				<Nav className="ms-auto">
-					{/* {!studentsView && <Nav.Item className="d-flex align-items-center ">
-						<h3
-							onClick={handleShowAddSeatingChart}
-						>
-							<PlusCircle />
-						</h3>
-					</Nav.Item>} */}
-					{!studentsView &&  <Nav.Item className="d-flex align-items-center ">
-						<h3
-							onClick={handleShowEditSeatingChart}
-						>
-							<Gear />
-						</h3>
-					</Nav.Item>}
+				<Nav className="m-auto">
 					{/* seatingCharts && seatingCharts.length > 0 && */}
-
 					{!studentsView &&  <Nav.Item className="d-flex align-items-center ">
-						<NavDropdown title="Saved Seating Charts" id="basic-nav-dropdown">
+						<NavDropdown title="View Saved Seating Charts" id="basic-nav-dropdown">
 							{seatingCharts && seatingCharts.map((sc, i) => {
 								return (
 									<NavDropdown.Item
@@ -71,13 +55,20 @@ function HeaderSeatingCharts ( props ) {
   							<NavDropdown.Item eventKey="4"
 								onClick={handleShowAddSeatingChart}
 							>
-								New Seating Chart
+								Create New Seating Chart
 							</NavDropdown.Item>
 						</NavDropdown>
 					</Nav.Item>}
+					{!studentsView &&  <Nav.Item className="d-flex align-items-center ">
+						<h3
+							onClick={handleShowEditSeatingChart}
+						>
+							<Gear />
+						</h3>
+					</Nav.Item>}
 				</Nav>
 			</Navbar>
-			<AddSeatingChart handleCloseAddSeatingChart={handleCloseAddSeatingChart} showAddSeatingChartModal={showAddSeatingChartModal} />
+			<AddSeatingChart handleCloseAddSeatingChart={handleCloseAddSeatingChart} showAddSeatingChartModal={showAddSeatingChartModal} klass={klass} />
 			<EditSeatingChart handleCloseEditSeatingChart={handleCloseEditSeatingChart} showEditSeatingChartModal={showEditSeatingChartModal} />
 		</Container>
 	);
