@@ -8,7 +8,7 @@ import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import { useForm } from 'react-hook-form';
 //import { Redirect } from 'react-router-dom';
 
-function AddSeatingChart (props) {
+function EditSeatingChart (props) {
 	// const { currentUser } = useAuth();
 	const { showAddSeatingChartModal, handleCloseAddSeatingChart } = props;
 	// eslint-disable-next-line no-unused-vars
@@ -32,7 +32,7 @@ function AddSeatingChart (props) {
 		>
 			<Form onSubmit={handleSubmit(handleSubmitAddSeatingChart)} >
 				<Modal.Header>
-					<Modal.Title>Create New Seating Chart</Modal.Title>
+					<Modal.Title>New Seating Chart for {}</Modal.Title>
 				</Modal.Header>
 				{/* <Modal.Body>
 					<Form.Group className="mb-3">
@@ -64,4 +64,4 @@ function AddSeatingChart (props) {
 	);
 }
 
-export default AddSeatingChart;
+export default EditSeatingChart;
