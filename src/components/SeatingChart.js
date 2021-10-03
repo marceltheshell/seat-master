@@ -19,7 +19,7 @@ function SeatingChart ( props ) {
 							className="klass-card-style" 
 							key={table.id}
 						>	
-							<Card className="text-center" >
+							<Card className="text-center card-sc-width" >
 								{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
 								<Card.Body>
 									{table && table.map(student => {
