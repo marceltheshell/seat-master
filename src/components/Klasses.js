@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import AddSchool from './AddSchool';
 import AddKlass from './AddKlass';
 import HeaderSchoolDisplay from './HeaderSchoolDisplay';
-import { Col, Row, Container, Card } from 'react-bootstrap';
+import { Col, Row, Container, Card, Button } from 'react-bootstrap';
 import { PlusCircle } from 'react-bootstrap-icons';
 // eslint-disable-next-line no-unused-vars
 import { useRouteMatch, Link } from 'react-router-dom';
@@ -29,6 +29,7 @@ function Klasses () {
 	const handleCloseAddKlass = () => {
 		setShowAddKlassModal(false);
 	};
+	// eslint-disable-next-line no-unused-vars
 	const handleShowAddKlass = () => {
 		setShowAddKlassModal(true);
 	};
@@ -75,10 +76,19 @@ function Klasses () {
 			<HeaderSchoolDisplay school={school} handleShowAddSchool={handleShowAddSchool} />
 			<Container>
 				<Row>
-					<Col>
+					<Col md={3}>
 						<h1 className="block-header">My classes</h1>
 					</Col>
+					<Col className='center-vertically'>
+						<Button
+							variant='outline-dark'
+							onClick={handleShowAddKlass}
+						>
+							<PlusCircle size={25} />
+						</Button>
+					</Col>
 				</Row>
+				<Row className='padding-top'></Row>
 				<Row className="klass-card-deck-style">
 					{Boolean(klasses) && (klasses.map((klass) => {
 						return (
@@ -93,20 +103,9 @@ function Klasses () {
 										<Card.Title >{klass.name}</Card.Title>
 									</Card.Body>
 								</Card>
-							</Link>		
+							</Link>
 						);
 					}))}
-					<Link
-						className="klass-card-style"
-						onClick={handleShowAddKlass}
-					>
-						<Card >
-							<Card.Body>
-								<Card.Title className="text-center" >Add new class</Card.Title>
-								<h2 className="text-center"><PlusCircle /></h2>
-							</Card.Body>
-						</Card>
-					</Link>
 				</Row>
 			</Container>
 			<AddSchool handleCloseAddSchool={handleCloseAddSchool} showAddSchoolModal={showAddSchoolModal} setSchool={setSchool}/>

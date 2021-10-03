@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState, useRef } from 'react';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
 import { Link, useRouteMatch } from 'react-router-dom';
 //import RankDetails from './RankDetails';
@@ -10,8 +10,9 @@ import AddStudent from './AddStudent';
 import HeaderKlass from './HeaderKlass';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
 import HeaderStudentsSeatingCharts from './HeaderStudentsSeatingCharts';
+import Metrics from './Metrics';
+import Students from './Students';
 import { useAuth } from '../context/AuthContext';
-import { PlusCircle } from 'react-bootstrap-icons';
 import SeatingChart from './SeatingChart';
 //import Student from './Student';
 //import UpdateStudentForm from './UpdateStudentForm';
@@ -24,7 +25,7 @@ function Klass({match}) {
 	const hasFetchedKlass = useRef(false);
 	const hasFetchedSeatingCharts = useRef(false);
 	const [klass, setKlass] = useState({});
-	const [studentsView, setStudentsView] = useState(true);
+	const [studentsMetricsScsView, setStudentsMetricsScsView] = useState(1);
 	const [students, setStudents] = useState([]);
 	const [seatingCharts, setSeatingCharts] = useState([]);
 	const [seatingChart, setSeatingChart] = useState({});
@@ -101,42 +102,12 @@ function Klass({match}) {
 		<React.Fragment>
 			<HeaderNav/>
 			<HeaderKlass klass={klass} />
-			<HeaderStudentsSeatingCharts  setStudentsView={setStudentsView} />
-			<HeaderSeatingCharts studentsView={studentsView} seatingCharts={seatingCharts} setSeatingChart={setSeatingChart} klass={klass} />
+			<HeaderStudentsSeatingCharts  setStudentsMetricsScsView={setStudentsMetricsScsView} />
+			<HeaderSeatingCharts studentsMetricsScsView={studentsMetricsScsView} seatingCharts={seatingCharts} setSeatingChart={setSeatingChart} klass={klass} />
 			<Container>
-				{/* <Row className="klass-card-deck-style"> */}
-				{!studentsView && <SeatingChart seatingChart={seatingChart} />}
-				{studentsView && Boolean(students) && students && (students.map((student) => {
-					return (
-						<Link 
-							// className="klass-card-style"
-							to={`/students/${student.id}`}
-							key={student.id}
-						>	
-							<Card className="text-center klass-card-style" >
-								{/* <Card.Img top width="100%" src={value.image} alt="Card image cap" /> */}
-								<Card.Body>
-									<Card.Text >{student.name}</Card.Text>
-								</Card.Body>
-							</Card>
-						</Link>		
-					);
-				}))}
-				{studentsView && <Link
-					className="klass-card-style"
-					onClick={handleShowAddStudent}
-				>
-					<Card >
-						<Card.Body>
-							<Row>
-								<Col>
-									<h2 className="text-center"><PlusCircle /></h2>
-								</Col>
-							</Row>
-						</Card.Body>
-					</Card>
-				</Link>}
-				{/* </Row> */}
+				{studentsMetricsScsView === 2 && <SeatingChart seatingChart={seatingChart} />}
+				{studentsMetricsScsView === 1 && <Students students={students} setStudents={setStudents} handleShowAddStudent={handleShowAddStudent} />}
+				{studentsMetricsScsView === 3 && <Metrics />}
 				<AddStudent showAddStudentModal={showAddStudentModal} handleCloseAddStudent={handleCloseAddStudent} />
 			</Container>
 		</React.Fragment>
