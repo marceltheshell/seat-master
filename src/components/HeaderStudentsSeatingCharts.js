@@ -2,11 +2,13 @@ import React from 'react';
 import { Navbar, Nav, Container, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 function HeaderStudentsSeatingCharts ( props ) {
-	const { setStudentsView } = props;
+	const { setStudentsMetricsScsView } = props;
 	
 	const handleChange = (val) => {
-		if (val === 1) setStudentsView(true);
-		if (val === 2) setStudentsView(false);
+		console.log('val', val);
+		if (val === 1) setStudentsMetricsScsView(1);
+		if (val === 2) setStudentsMetricsScsView(2);
+		if (val === 3) setStudentsMetricsScsView(3);
 	};
 	
 	return (
@@ -17,6 +19,9 @@ function HeaderStudentsSeatingCharts ( props ) {
 						<ToggleButtonGroup type="radio" name="options" defaultValue={1} onChange={handleChange}>
 							<ToggleButton id="tbg-btn-1" value={1}>
 								Students
+							</ToggleButton>
+							<ToggleButton id="tbg-btn-3" value={3}>
+								Metrics
 							</ToggleButton>
 							<ToggleButton id="tbg-btn-2" value={2}>
 								Seating Charts
