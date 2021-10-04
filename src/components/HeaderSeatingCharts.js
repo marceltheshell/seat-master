@@ -9,7 +9,7 @@ function HeaderSeatingCharts ( props ) {
 	const { studentsMetricsScsView, seatingCharts, setSeatingChart, klass } = props;
 	const [showAddSeatingChartModal, setShowAddSeatingChartModal] = useState( false );
 	const [showEditSeatingChartModal, setShowEditSeatingChartModal] = useState( false );
-	
+
 	const pickSeatingChart = (sc_id) => {
 		const sc = seatingCharts.filter(sc => {
 			return sc.id === Number(sc_id);
