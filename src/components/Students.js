@@ -7,11 +7,17 @@ function Students (props) {
 	const { students, handleShowAddStudent, setStudents } = props;
 	// eslint-disable-next-line no-unused-vars
 	const handleMetricScoreChange = (score, student, metric) => {
-		console.log('s', student);
+		// clone the array
 		const studentsCopy = JSON.parse(JSON.stringify(students));
-		const updatedStudent = student.metrics.find(m => m.name === metric.name).score = Number(score);
-		const foundIndex = studentsCopy.findIndex(obj => obj.id === student.id );
-		studentsCopy[foundIndex] = updatedStudent;
+
+		// find the object in the array with key student id
+		const foundStudentIndex = studentsCopy.findIndex(obj => obj.id === student.id );
+		
+		// find the object in the array with key metric name
+		const foundMetricIndex = studentsCopy[foundStudentIndex].metrics.findIndex(obj => obj.name === metric.name );
+		
+		// update that studentCopy object
+		studentsCopy[foundStudentIndex].metrics[foundMetricIndex].score = Number(score);
 		setStudents(studentsCopy);
 	};
 	const deleteStudent = () => {
