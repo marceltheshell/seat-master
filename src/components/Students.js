@@ -5,7 +5,7 @@ import { XCircle } from 'react-bootstrap-icons';
 function Students (props) {
 	// eslint-disable-next-line no-unused-vars
 	const { students, handleShowAddStudent, setStudents } = props;
-	// eslint-disable-next-line no-unused-vars
+
 	const handleMetricScoreChange = (score, student, metric) => {
 		// clone the array
 		const studentsCopy = JSON.parse(JSON.stringify(students));
@@ -20,8 +20,8 @@ function Students (props) {
 		studentsCopy[foundStudentIndex].metrics[foundMetricIndex].score = Number(score);
 		setStudents(studentsCopy);
 	};
-	const deleteStudent = () => {
-
+	const deleteStudent = (student) => {
+		const studentsCopy = JSON.parse(JSON.stringify(students));
 	};
 
 	return (
@@ -69,7 +69,7 @@ function Students (props) {
 								<Col className='center-vertically center-horizontally'>
 									<Button
 										variant='outline-dark'
-										onClick={deleteStudent}
+										onClick={() => deleteStudent(student)}
 									>
 										<XCircle size={25} />
 									</Button>
