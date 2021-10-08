@@ -87,6 +87,11 @@ a:active {
   text-decoration: underline;
 }
 
+.card-sc-width {
+  width: 200px;
+  margin-top: 20px;
+}
+
 
 
 /* .block-header {
