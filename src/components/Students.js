@@ -21,7 +21,11 @@ function Students (props) {
 		setStudents(studentsCopy);
 	};
 	const deleteStudent = (student) => {
+		// console.log(student);
 		const studentsCopy = JSON.parse(JSON.stringify(students));
+		const removeIdx = studentsCopy.findIndex( item => item.id === student.id);
+		studentsCopy.splice(removeIdx, 1);
+		setStudents(studentsCopy);
 	};
 
 	return (
