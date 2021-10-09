@@ -9,7 +9,7 @@ import HeaderSeatingCharts from './HeaderSeatingCharts';
 import AddStudent from './AddStudent';
 import HeaderKlass from './HeaderKlass';
 import SeatMasterApiClient from '../clients/SeatMasterApiClient';
-import HeaderStudentsSeatingCharts from './HeaderStudentsSeatingCharts';
+import HeaderStudentsMetricsScTab from './HeaderStudentsMetricsScTab';
 import Metrics from './Metrics';
 import Students from './Students';
 import { useAuth } from '../context/AuthContext';
@@ -22,14 +22,17 @@ function Klass({match}) {
 	
 	const { currentUser } = useAuth();
 	const hasFetchedStudents = useRef(false);
+	const hasFetchedMetrics = useRef();
 	const hasFetchedKlass = useRef(false);
 	const hasFetchedSeatingCharts = useRef(false);
 	const [klass, setKlass] = useState({});
-	const [studentsMetricsScsView, setStudentsMetricsScsView] = useState(1);
+	const [metrics, setMetrics] = useState([]);
+	const [studentsMetricsScsTab, setStudentsMetricsScsTab] = useState(1);
 	const [students, setStudents] = useState([]);
 	const [seatingCharts, setSeatingCharts] = useState([]);
 	const [seatingChart, setSeatingChart] = useState({});
 	const [showAddStudentModal, setShowAddStudentModal] = useState( false );
+	const [metricsToShow, setMetricsToShow] = useState([]);
 	// const [editStudentModalShow, setEditStudentModalShow] = useState( false );
 	// const [showRanks, setShowRanks] = useState( false );
 
@@ -47,6 +50,16 @@ function Klass({match}) {
 			const response = await SeatMasterApiClient.get(fetchKlassUrl, currentUser.authToken);
 			setKlass(response.data);
 			hasFetchedKlass.current = true;
+		}
+	};
+
+	const fetchMetrics = async () => {
+		if (!hasFetchedMetrics.current) {
+			// get the klasses with the user id in the url first
+			const getMetricsUrl = `${process.env.REACT_APP_DEV_SERVER_URL}/metrics`;
+			const metrics = await SeatMasterApiClient.get(getMetricsUrl, currentUser.authToken );
+			setMetrics(metrics.data);
+			hasFetchedMetrics.current = true;
 		}
 	};
 
@@ -96,18 +109,19 @@ function Klass({match}) {
 		fetchKlass();
 		fetchStudents();
 		fetchSeatingCharts();
-	}, [fetchKlass, fetchStudents, fetchSeatingCharts]);
+		fetchMetrics();
+	}, [fetchKlass, fetchStudents, fetchSeatingCharts, fetchMetrics]);
 	
 	return (
 		<React.Fragment>
 			<HeaderNav/>
 			<HeaderKlass klass={klass} />
-			<HeaderStudentsSeatingCharts  setStudentsMetricsScsView={setStudentsMetricsScsView} />
-			<HeaderSeatingCharts studentsMetricsScsView={studentsMetricsScsView} seatingCharts={seatingCharts} setSeatingChart={setSeatingChart} klass={klass} />
+			<HeaderStudentsMetricsScTab  setStudentsMetricsScsTab={setStudentsMetricsScsTab} />
+			<HeaderSeatingCharts studentsMetricsScsTab={studentsMetricsScsTab} seatingCharts={seatingCharts} setSeatingChart={setSeatingChart} klass={klass} />
 			<Container>
-				{studentsMetricsScsView === 2 && <SeatingChart seatingChart={seatingChart} />}
-				{studentsMetricsScsView === 1 && <Students students={students} setStudents={setStudents} handleShowAddStudent={handleShowAddStudent} />}
-				{studentsMetricsScsView === 3 && <Metrics />}
+				{studentsMetricsScsTab === 2 && <SeatingChart seatingChart={seatingChart} />}
+				{studentsMetricsScsTab === 1 && <Students metricsToShow={metricsToShow} students={students} setStudents={setStudents} handleShowAddStudent={handleShowAddStudent} />}
+				{studentsMetricsScsTab === 3 && <Metrics metrics={metrics} setMetricsToShow={setMetricsToShow} metricsToShow={metricsToShow} />}
 				<AddStudent showAddStudentModal={showAddStudentModal} handleCloseAddStudent={handleCloseAddStudent} />
 			</Container>
 		</React.Fragment>

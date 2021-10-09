@@ -4,7 +4,7 @@ import { XCircle } from 'react-bootstrap-icons';
 
 function Students (props) {
 	// eslint-disable-next-line no-unused-vars
-	const { students, handleShowAddStudent, setStudents } = props;
+	const { students, handleShowAddStudent, setStudents, metricsToShow } = props;
 
 	const handleMetricScoreChange = (score, student, metric) => {
 		// clone the array
@@ -28,6 +28,10 @@ function Students (props) {
 		setStudents(studentsCopy);
 	};
 
+	const checkIfDisplayMetric = (metricToDisplay) => {
+		return metricsToShow.filter(m => m.id === metricToDisplay.id)[0];
+	};
+
 	return (
 		<Table striped bordered hover>
 			<thead>
@@ -46,27 +50,29 @@ function Students (props) {
 							<td>{student.name}</td>
 							<td>
 								{Boolean(student.metrics) && student.metrics.map((metric, idx2) => {
-									return (
-										<Row>
-											<Col><p key={idx2}>{metric.name}</p></Col>
-											<Col>
-												<Dropdown onSelect={(score) => handleMetricScoreChange(score, student, metric)}>
-													<Dropdown.Toggle 
-														variant='outline-dark' 
-														id="metric-score"
-													>
-														{metric.score}
-													</Dropdown.Toggle>
-													<Dropdown.Menu>
-														<Dropdown.Item eventKey='1'>1</Dropdown.Item>
-														<Dropdown.Item eventKey='2'>2</Dropdown.Item>
-														<Dropdown.Item eventKey='3'>3</Dropdown.Item>
-														<Dropdown.Item eventKey='4'>4</Dropdown.Item>
-													</Dropdown.Menu>
-												</Dropdown>
-											</Col>
-										</Row>
-									);
+									if (checkIfDisplayMetric(metric)) {
+										return (
+											<Row>
+												<Col><p key={idx2}>{metric.name}</p></Col>
+												<Col>
+													<Dropdown onSelect={(score) => handleMetricScoreChange(score, student, metric)}>
+														<Dropdown.Toggle 
+															variant='outline-dark' 
+															id="metric-score"
+														>
+															{metric.score}
+														</Dropdown.Toggle>
+														<Dropdown.Menu>
+															<Dropdown.Item eventKey='1'>1</Dropdown.Item>
+															<Dropdown.Item eventKey='2'>2</Dropdown.Item>
+															<Dropdown.Item eventKey='3'>3</Dropdown.Item>
+															<Dropdown.Item eventKey='4'>4</Dropdown.Item>
+														</Dropdown.Menu>
+													</Dropdown>
+												</Col>
+											</Row>
+										);
+									}
 								})}
 							</td>
 							<td>

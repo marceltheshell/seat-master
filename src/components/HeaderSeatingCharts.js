@@ -6,7 +6,7 @@ import { PlusCircle } from 'react-bootstrap-icons';
 import { Gear } from 'react-bootstrap-icons';
 
 function HeaderSeatingCharts ( props ) {
-	const { studentsMetricsScsView, seatingCharts, setSeatingChart, klass } = props;
+	const { studentsMetricsScsTab, seatingCharts, setSeatingChart, klass } = props;
 	const [showAddSeatingChartModal, setShowAddSeatingChartModal] = useState( false );
 	const [showEditSeatingChartModal, setShowEditSeatingChartModal] = useState( false );
 
@@ -37,7 +37,7 @@ function HeaderSeatingCharts ( props ) {
 		<Container>
 			<Navbar className="navbarClass" expand="lg">
 				<Nav className="m-auto">
-					{studentsMetricsScsView === 2 &&  <Nav.Item className="d-flex align-items-center ">
+					{studentsMetricsScsTab === 2 &&  <Nav.Item className="d-flex align-items-center ">
 						<NavDropdown title="View Saved Seating Charts" id="basic-nav-dropdown">
 							{seatingCharts && seatingCharts.map((sc, i) => {
 								return (
@@ -58,14 +58,14 @@ function HeaderSeatingCharts ( props ) {
 							</NavDropdown.Item>
 						</NavDropdown>
 					</Nav.Item>}
-					{studentsMetricsScsView === 2 &&  <Nav.Item className="d-flex align-items-center ">
+					{studentsMetricsScsTab === 2 &&  <Nav.Item className="d-flex align-items-center ">
 						<h3
 							onClick={handleShowEditSeatingChart}
 						>
 							<Gear />
 						</h3>
 					</Nav.Item>}
-					{studentsMetricsScsView === 1 && <Col className='center-vertically center-horizontally'>
+					{studentsMetricsScsTab === 1 && <Col className='center-vertically center-horizontally'>
 						<Button
 							variant='outline-dark'
 						>
