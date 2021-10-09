@@ -1,14 +1,14 @@
 import React from 'react';
 import { Navbar, Nav, Container, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
-function HeaderStudentsSeatingCharts ( props ) {
-	const { setStudentsMetricsScsView } = props;
+function HeaderStudentsMetricsScTab ( props ) {
+	const { setStudentsMetricsScsTab } = props;
 	
 	const handleChange = (val) => {
 		console.log('val', val);
-		if (val === 1) setStudentsMetricsScsView(1);
-		if (val === 2) setStudentsMetricsScsView(2);
-		if (val === 3) setStudentsMetricsScsView(3);
+		if (val === 1) setStudentsMetricsScsTab(1);
+		if (val === 2) setStudentsMetricsScsTab(2);
+		if (val === 3) setStudentsMetricsScsTab(3);
 	};
 	
 	return (
@@ -35,4 +35,4 @@ function HeaderStudentsSeatingCharts ( props ) {
 
 }
 
-export default HeaderStudentsSeatingCharts;
+export default HeaderStudentsMetricsScTab;
