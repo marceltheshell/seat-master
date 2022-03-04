@@ -1,0 +1,8 @@
+{
+  "short_name": "Seat Master",
+  "name": "Seat Master",
+  "start_url": "http://localhost:3000",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
