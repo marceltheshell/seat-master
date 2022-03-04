@@ -1,103 +1,221 @@
-/* .brand-main-text {
-  font-size:8vw;
-  font-family: 'Gobold Blocky', sans-serif;
-  color: #EDF5E1;
-}
 
-.brand-tag-line {
-  font-size:1.5vw;
-  color: #05386B;
-  font-family: 'Oswald', sans-serif;
-}
 
-.link-text-size {
-  font-size:1.5vw;
-}
 
-.oswald-font {
-  font-family: 'Oswald', sans-serif;
-}
-
-.brand-font {
-  font-family: 'Gobold Blocky', sans-serif;
-}
-
-.center-text {
-  text-align: center !important;
-}
-
-.brand-white {
-  color: #EDF5E1;
-}
-
-.brand-blue {
-  color: #05386B;
-}
-
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-  background-color: #05386B !important;
-}
-
-.background-green {
-  background-color: #5CDB95;
-}
-
-.off-green {
-  background-color: #8EE4af;
-} */
-
-.center-vertically {
-  display: flex;
-  align-items: center;
-}
-
-.padding-top {
-  padding-top: 20px;
-}
-
-.center-horizontally {
-  justify-content: center;
-}
+/*Changed deck-style to shade of white --what classes background is*/
 
 .klass-card-deck-style {
   justify-content: center;
   display: flex;
   flex-direction: 'row';
+  background-color:#05386B;
+
 }
 
 .klass-card-style {
-  text-decoration: none !important;
+  text-decoration: none;
   flex: 1;
   max-width: 30%;
+
 }
+
+/*Changes text of the classes under My Classes
+  a:link also changes the dropdown menu for Seating Charts
+*/
 
 a:link {
   text-decoration: none;
+  color: black;
 }
 
 a:visited {
   text-decoration: none;
+  color: black;
 }
 
 a:hover {
   text-decoration: none;
+  color: black;
 }
 
 a:active {
   text-decoration: underline;
 }
 
+/* Controls seating chart width */
+
 .card-sc-width {
-  width: 200px;
+  width: 250px;
   margin-top: 20px;
+
+} 
+
+/*Changed card-body to shade of skyblue*/
+
+.card-body {
+  background:skyblue;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+
+}
+
+/*changes the text of the seating chart names*/
+
+.card-text{
+  color: black;
+}
+
+/*NavBar Color changed to lighter black*/
+
+.navbarClass {
+  color: white;
+  background-color:05386B;
+
+}
+
+.navBar-nav{
+  background-color: yellow;
+}
+
+p {
+  color:white;
+}
+
+/* .brand-fontColor{
+  color: white;
+}
+ */
+
+/*Block next to My Classes and the School /Change School Text */
+
+/* .center-vertically {
+  background-color:#141414;
+  color:white;
+  text-align: center;
+}  */
+
+/*The 'My Classes' text block*/
+
+.centerschool {
+  text-align: center;
+}
+
+.block-header {
+  font-size: 1.5rem;
+  font-family: 'Gobold Blocky', sans-serif;
+  background-color:#05386B;
+  color: white;
 }
 
 
 
-/* .block-header {
-  font-size: 4.5rem;
-  font-family: 'Gobold Blocky', sans-serif;
-  color: #EDF5E1;
+
+/*The Plus Button color lives here in Klasses.js
+            <Button
+							variant='outline-light'
+							onClick={handleShowAddKlass}
+						>
+							<PlusCircle size={25} />
+						</Button>
+*/
+
+/*Changes color of Change School button*/
+
+/* .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: skyblue;
+}
+
+.btn-primary {
+  color: black!important;
+  background-color:skyblue!important;
+  border-color: #5bc2c2
+}
+
+.btn-primary:hover {
+  color: black!important;
+  background-color: skyblue!important;
+  border-color: #8ad3d3
 } */
+
+
+
+
+
+
+
+
+.center-vertically {
+  display: flex;
+  align-items: center;
+}
+btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
+  color: #7cc;
+  background-color: transparent
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show>.btn-outline-primary.dropdown-toggle {
+  color: #212529;
+  background-color:  #05386B;
+  border-color: #7cc
+}
+
+.center-horizontally {
+  justify-content: center;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-outline-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
+}
+
+
+.btn-purple {
+  background-color: #05386B;
+}
+
+.btn-outline-dark{
+  background-color: purple;
+  color:black;
+}
+
+.btn-school{
+  background-color: yellow;
+  color:black;
+}
+ 
+
+
+/*Changes color of containers, used to color the seating chart background
+changes the box 'Improve your groupwork in your classroom'
+*/
+
+.container{
+  background-color:#05386B;
+  color: white;
+}
+
+
+tr:nth-child(odd) {
+  background-color: lightskyblue;
+  }
+
+ tr:nth-child(even) {
+  background-color: lightskyblue;
+  }
+
+  th {
+     background-color: white;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: white;
+  }
+
+ 
+
 
 

@@ -1,33 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Table, Col, Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { XCircle } from 'react-bootstrap-icons';
 
 function Metrics (props) {
 	// eslint-disable-next-line no-unused-vars
-	const { metrics, metricsToShow, setMetricsToShow } = props;
+	const { metrics} = props;
 	
-	const handleToggleMetricToAdd = (e, metric) => {
-		if (e === 1) {
+	/* 	const handleToggleMetricToAdd = (e, metric) => {
+		if (e === 0) {
 			setMetricsToShow(metricsToShow => [...metricsToShow, metric]);
 			// set elemnt to active	
 		}
-		if (e === 2) {
+		if (e === 1) {
 			setMetricsToShow(metricsToShow => metricsToShow.filter((m => m.id !== metric.id)));
 			// set elemnt to inactive
 		}
-	};
+	}; */
 
-	const handleDefaultMetricButtonValue = (metric) => {
-		const res =  metricsToShow.filter(m => m.id === metric.id)[0] ? 1 : 2;
+	/* 	const handleDefaultMetricButtonValue = (metric) => {
+		const res =  metricsToShow.filter(m => m.id === metric.id)[0] ? 0 : 1;
 		console.log(res);
 		return res;
-	};
+	}; */
 	// const setDefaultMetricButtonActive = (metric) => {
 	// 	const res =  metricsToShow.filter(m => m.id === metric.id)[0] ? 1 : 2;
 	// 	console.log(res);
 	// 	return res;
 	// };
 	
+	const [buttonToShow, setButtonToShow] = useState([1, 2]);
+
+	const handleButtonChange = (val) => {
+		console.log('val', val);
+		if (val === 1) setButtonToShow([1]);
+		if (val === 2) setButtonToShow([2]);
+	};
+
 	return (
 		<Table striped bordered hover>
 			<thead>
@@ -38,22 +46,31 @@ function Metrics (props) {
 				</tr>
 			</thead>
 			<tbody>
-				{metrics && (metrics.map((metric, idx) => {
+				{metrics.map((metric,idx) => {
 					// setDefaultMetricButtonActive(metric);
 					return (
-						<tr key={idx}>
+						<tr>
 							<td>{metric.name}</td>
 							<td>
 								<ToggleButtonGroup 
-									type="radio" 
-									name="options" 
-									defaultValue={handleDefaultMetricButtonValue(metric)}
-									onChange={e => handleToggleMetricToAdd(e, metric)}
+									type="radio"
+									name="radio" 
+									defaultValue={buttonToShow} 
+									onChange={handleButtonChange}
+									
 								>
-									<ToggleButton id={`show-metric-btn-${metric.id}`} variant='outline-dark' value={1}>
+									<ToggleButton
+										key={idx}
+										id={'metric-btn'+{idx}}
+										variant='outline-dark'
+										value={1}>
 										Yes
 									</ToggleButton>
-									<ToggleButton id={`hide-metric-btn-${metric.id}`} variant='outline-dark' value={2}>
+									<ToggleButton 
+										key={idx+1}
+										id={'metric-btn-2'+{idx}}
+										variant='outline-dark'
+										value={2}>
 										No
 									</ToggleButton>
 								</ToggleButtonGroup>
@@ -70,7 +87,7 @@ function Metrics (props) {
 							</td>
 						</tr>
 					);
-				}))}
+				})}
 			</tbody>
 		</Table>
 	);

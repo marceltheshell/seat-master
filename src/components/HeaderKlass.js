@@ -5,7 +5,7 @@ function HeaderKlass (props) {
 	const { klass } = props;
 	return (
 		<Container>
-			<Navbar className="navbarClass" expand="lg">
+			<Navbar className="navbarClass" expand="lg" variant="light">
 				<Nav className="m-auto">
 					<Nav.Item className="d-flex align-items-center">
 						{ Boolean(klass) && klass.name}

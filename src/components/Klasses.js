@@ -9,6 +9,7 @@ import { Col, Row, Container, Card, Button } from 'react-bootstrap';
 import { PlusCircle } from 'react-bootstrap-icons';
 // eslint-disable-next-line no-unused-vars
 import { useRouteMatch, Link } from 'react-router-dom';
+import '../_custom.scss';
 
 function Klasses () {
 	//let { url } = useRouteMatch();
@@ -73,7 +74,9 @@ function Klasses () {
 	return (
 		<React.Fragment>
 			<HeaderNav />
-			<HeaderSchoolDisplay school={school} handleShowAddSchool={handleShowAddSchool} />
+			<HeaderSchoolDisplay
+				school={school} 
+				handleShowAddSchool={handleShowAddSchool} />
 			<Container>
 				<Row>
 					<Col md={3}>
@@ -81,7 +84,7 @@ function Klasses () {
 					</Col>
 					<Col className='center-vertically'>
 						<Button
-							variant='outline-dark'
+							variant='outline-light'
 							onClick={handleShowAddKlass}
 						>
 							<PlusCircle size={25} />

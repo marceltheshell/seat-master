@@ -35,14 +35,14 @@ function Header () {
 
 	return (
 		<Container>
-			<Navbar className="navbarClass" expand="lg">
+			<Navbar className="navbarClass" expand="lg" variant="dark">
 				<Navbar.Brand href="/" className="brand-fontColor oswald-font" >SeatMaster</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav">
+				<Navbar.Collapse className="basic-navbar-nav">
 					<Nav>
 						<Nav.Item className="d-flex align-items-center">
 							<Nav.Link
-								className="brand-fontColor oswald-font link-text-size " 
+								className="brand-fontColor oswald-font link-text-size" 
 							>
 								The Story
 							</Nav.Link>

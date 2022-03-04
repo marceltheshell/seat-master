@@ -46,7 +46,8 @@ function EditSeatingChart (props) {
 				</Modal.Body> */}
 				<Modal.Footer>
 					<div>
-						<Button variant="secondary" onClick={ () => {handleCloseAddSeatingChart(); resetErrors();}}>
+						<Button 
+							variant="secondary" onClick={ () => {handleCloseAddSeatingChart(); resetErrors();}}>
 							Cancel
 						</Button>
 					</div>

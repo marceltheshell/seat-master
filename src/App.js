@@ -13,7 +13,10 @@ function App() {
 	return (
 		<AuthProvider user={user}>
 			<BrowserRouter>
-				<div>
+				<div style={{ 
+					backgroundColor: '#05386B',
+					height: '1200px',
+				}}>
 					<Switch>
 						<Route exact path="/" component={Welcome}/>
 						<Route exact path="/klasses" component={Klasses}/>

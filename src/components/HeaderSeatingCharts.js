@@ -35,10 +35,10 @@ function HeaderSeatingCharts ( props ) {
 	
 	return (
 		<Container>
-			<Navbar className="navbarClass" expand="lg">
+			<Navbar className="navbarClass" expand="lg" variant="dark">
 				<Nav className="m-auto">
 					{studentsMetricsScsTab === 2 &&  <Nav.Item className="d-flex align-items-center ">
-						<NavDropdown title="View Saved Seating Charts" id="basic-nav-dropdown">
+						<NavDropdown title="View Saved Seating Charts" className="basic-nav-dropdown">
 							{seatingCharts && seatingCharts.map((sc, i) => {
 								return (
 									<NavDropdown.Item
@@ -67,7 +67,7 @@ function HeaderSeatingCharts ( props ) {
 					</Nav.Item>}
 					{studentsMetricsScsTab === 1 && <Col className='center-vertically center-horizontally'>
 						<Button
-							variant='outline-dark'
+							variant='outline-light'
 						>
 							<PlusCircle size={25} />
 						</Button>

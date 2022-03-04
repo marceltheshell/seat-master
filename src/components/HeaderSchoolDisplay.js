@@ -9,13 +9,18 @@ function HeaderSchoolDisplay (props) {
 	const { school, handleShowAddSchool } = props;
 	return (
 		<Container>
-			<Navbar className="navbarClass" expand="lg">
+			<Navbar className="navbarClass" expand="lg" variant="light">
 				<Nav className="ms-auto">
-					<Nav.Item className="d-flex align-items-center" style={{paddingRight:'24px'}}>
-						{ Boolean(school) && school.name}
+					<Nav.Item className="d-flex align-items-center" 
+						style={{paddingRight:'15px'}}>
+						<Button
+							className = "btn-school">
+							{ Boolean(school) && school.name}
+						</Button>
 					</Nav.Item>
 					<Nav.Item>
 						<Button
+	
 							onClick={handleShowAddSchool}
 						>
 							{school ? 'Change School' : 'Add School'}

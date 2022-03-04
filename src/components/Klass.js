@@ -17,6 +17,7 @@ import SeatingChart from './SeatingChart';
 //import Student from './Student';
 //import UpdateStudentForm from './UpdateStudentForm';
 //import AddStudentForm from './AddStudentForm';
+import '../_custom.scss';
 
 function Klass({match}) {
 	
